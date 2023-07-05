@@ -1,0 +1,17 @@
+/* Container specific */
+.container {
+  display: flex;
+}
+
+.container__direction_column {
+  flex-direction: column;
+}
+
+.container__justify_space_around {
+  justify-content: space-around;
+}
+
+/* Item specific */
+.item__align_flex_end {
+  align-self: flex-end;
+}

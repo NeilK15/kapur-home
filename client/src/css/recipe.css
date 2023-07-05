@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto400,900");
+
+.recipe {
+  width: 75vw;
+  padding: 5vh;
+  background-color: rgb(6, 0, 38);
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
+  color: rgb(239, 255, 234);
+}
+
+.recipe__title {
+  font-size: 4vh;
+}

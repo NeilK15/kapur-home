@@ -8,13 +8,7 @@ type Props = {
   hasComma: boolean;
 };
 
-const NutritionValue = ({
-  key,
-  title = "",
-  value = null,
-  unit = "",
-  hasComma = false,
-}: Props) => {
+const NutritionValue = ({ key = 0, title = "", value = null, unit = "", hasComma = false }: Props) => {
   if (value && title !== "" && unit !== "") {
     return (
       <li className="nutrition__value" key={key}>

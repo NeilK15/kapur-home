@@ -1,24 +1,17 @@
 import NutritionValue from "./NutritionValue";
 import "../css/nutrition.css";
-import { Value } from "../@customTypes/RecipeTypes";
+import { RecipeNutritionValue } from "../@customTypes/RecipeTypes";
+import Header from "./Header";
 
 type Props = {
-  values: Array<Value>;
+  values: Array<RecipeNutritionValue>;
 };
 
 const Nutrition = ({ values }: Props) => {
   const nutritionValues: Array<JSX.Element> = values
     .slice(0, values.length - 1)
     .map((value, index) => {
-      return (
-        <NutritionValue
-          key={index}
-          title={value.title}
-          value={value.value}
-          unit={value.unit}
-          hasComma={true}
-        />
-      );
+      return <NutritionValue key={index} title={value.title} value={value.value} unit={value.unit} hasComma={true} />;
     })
     .concat(
       <NutritionValue
@@ -31,8 +24,7 @@ const Nutrition = ({ values }: Props) => {
     );
   return (
     <div>
-      <h3>Nutrition</h3>
-      <hr />
+      <Header>Nutrition</Header>
       <ul className="nutrition__values">{nutritionValues}</ul>
     </div>
   );

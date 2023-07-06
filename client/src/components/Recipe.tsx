@@ -2,81 +2,35 @@ import "../css/recipe.css";
 import "../css/testing.css";
 import "../css/flex.css";
 import Nutrition from "./Nutrition";
-import { Value } from "../@customTypes/RecipeTypes";
+import { RecipeNutritionValue, RecipeData } from "../@customTypes/RecipeTypes";
+import Description from "./Description";
+import Ingredients from "./Ingredients";
 
-const Recipe = () => {
-  const sample_nutrition: Array<Value> = [
-    {
-      title: "Calories",
-      value: 300,
-      unit: "cals",
-    },
-    {
-      title: "Carbohydrates",
-      value: 300,
-      unit: "g",
-    },
-    {
-      title: "Protein",
-      value: 30,
-      unit: "g",
-    },
-    {
-      title: "Fat",
-      value: 15,
-      unit: "g",
-    },
-    {
-      title: "Saturated Fat",
-      value: 5,
-      unit: "g",
-    },
-    {
-      title: "Sodium",
-      value: 400,
-      unit: "g",
-    },
-    {
-      title: "Potassium",
-      value: 30,
-      unit: "g",
-    },
-    {
-      title: "Fiber",
-      value: 3,
-      unit: "g",
-    },
-    {
-      title: "Sugar",
-      value: 10,
-      unit: "g",
-    },
-    {
-      title: "Vitamin A",
-      value: 123,
-      unit: "iu",
-    },
-    {
-      title: "Vitamin C",
-      value: 25,
-      unit: "mg",
-    },
-    {
-      title: "Calcium",
-      value: 24,
-      unit: "mg",
-    },
-    {
-      title: "Iron",
-      value: 1,
-      unit: "mg",
-    },
-  ];
+type Props = {
+  recipeData: RecipeData;
+};
+
+const Recipe = ({ recipeData }: Props) => {
+  const sample_nutrition: Array<RecipeNutritionValue> = recipeData.nutrition;
 
   return (
     <div className="recipe flex_recipe boundingbox">
-      <h1 className="recipe__title">Chickennnnnn</h1>
-      <p>This is a recipe about chicken</p>
+      <div className="recipe__header_and_image">
+        <div className="recipe__info">
+          <h1 className="recipe__info__title">{recipeData.name}</h1>
+          <ul className="recipe__info__details">
+            <li className="recipe__info__details__time">
+              {recipeData.prepTime} {recipeData.prepTimeUnit}
+            </li>
+          </ul>
+        </div>
+        <img src={recipeData.imageUrl} alt={`Image of ${recipeData.name}`} className="recipe__image" />
+      </div>
+
+      <Description>{recipeData.description}</Description>
+
+      <Ingredients header="Ingredients" data={recipeData.ingredients} />
+
       <Nutrition values={sample_nutrition} />
     </div>
   );

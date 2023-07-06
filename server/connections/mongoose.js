@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const config = require("../../server-config.json");
+const config = require("../server-config.json");
 
 mongoose
   .connect(config["mongodb-connection-uri"])

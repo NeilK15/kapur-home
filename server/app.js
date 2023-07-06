@@ -1,12 +1,16 @@
 const express = require("express");
-require("./src/database/mongoose");
-const Counter = require("./src//database/models/counter");
 const app = express();
 const PORT = 8000;
 
+// Routes
+const homeRouter = require("./routes/home");
+const recipeRouter = require("./routes/recipe");
+
+app.use("/recipes", recipeRouter);
+
+app.use("/", homeRouter);
+
 app.listen(8000, () => {
-  const counter = new Counter({ num: 0 });
-  counter.save();
-  console.log(counter.num);
   console.log(`Listening on port ${PORT}`);
+  console.log(`Ctrl-Click http://localhost:${PORT}`);
 });

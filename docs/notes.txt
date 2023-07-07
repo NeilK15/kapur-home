@@ -1,0 +1,13 @@
+From mom:
+
+Tags, maybe a drop down with ability to add categories also:
+
+Appetizers,
+Breakfast,
+Dessert,
+Main Dish,
+Smoothies - Drinks,
+Soups,
+Salads,
+Snacks,
+Try

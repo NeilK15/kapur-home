@@ -1,4 +1,4 @@
-import "../css/recipe.css";
+import "../../css/Recipe/recipe.css";
 
 type Props = {
   children: string;
@@ -7,7 +7,7 @@ type Props = {
 const Header = ({ children }: Props) => {
   return (
     <>
-      <h3>{children}</h3>
+      <h3 className="header">{children}</h3>
       <hr />
     </>
   );

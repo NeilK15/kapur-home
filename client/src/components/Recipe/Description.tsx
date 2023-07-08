@@ -1,4 +1,4 @@
-import "../css/recipe.css";
+import "../../css/Recipe/recipe.css";
 import Header from "./Header";
 
 type Props = {

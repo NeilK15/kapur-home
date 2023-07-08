@@ -1,5 +1,5 @@
-import { RecipeIngredient, RecipeIngredientGroup } from "../@customTypes/RecipeTypes";
-import "../css/recipe.css";
+import { RecipeIngredient, RecipeIngredientGroup } from "../../@customTypes/RecipeTypes";
+import "../../css/Recipe/recipe.css";
 import Header from "./Header";
 
 type ing = RecipeIngredient | RecipeIngredientGroup;

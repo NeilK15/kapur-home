@@ -1,6 +1,6 @@
 import NutritionValue from "./NutritionValue";
-import "../css/nutrition.css";
-import { RecipeNutritionValue } from "../@customTypes/RecipeTypes";
+import "../../css/Recipe/nutrition.css";
+import { RecipeNutritionValue } from "../../@customTypes/RecipeTypes";
 import Header from "./Header";
 
 type Props = {

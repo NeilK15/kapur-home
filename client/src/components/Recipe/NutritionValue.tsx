@@ -1,4 +1,4 @@
-import "../css/nutrition.css";
+import "../../css/Recipe/nutrition.css";
 
 type Props = {
   key: number;

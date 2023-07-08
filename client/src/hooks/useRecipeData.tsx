@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { RecipeData } from "../@customTypes/RecipeTypes";
 
-export const useRecipeData = (id: number) => {
+type Params = {
+  id?: number;
+  url?: string;
+};
+
+export const useRecipeData = ({ id, url = `http://localhost:8000/recipes?${id}` }: Params) => {
   const [data, setData] = useState<RecipeData>();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/recipes?${id}`)
+    fetch(url)
       .then((res) => {
         console.log(res);
         return res.json();

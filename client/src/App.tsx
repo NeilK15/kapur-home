@@ -1,10 +1,10 @@
-import Recipe from "./components/Recipe";
+import Recipe from "./components/Recipe/Recipe";
 import "./css/app.css";
 import "./css/testing.css";
 import { useRecipeData } from "./hooks/useRecipeData";
 
 function App() {
-  const { data } = useRecipeData(69420);
+  const { data } = useRecipeData({ url: "../sample_recipe.json" });
 
   if (data) return <Recipe recipeData={data} />;
 }

@@ -1,0 +1,17 @@
+.nutrition__values {
+  background-color: rgb(249, 249, 249);
+  color: rgb(78, 78, 78);
+  padding: 20px;
+
+  list-style-type: none;
+}
+
+.nutrition__value {
+  display: inline;
+  padding: 2px;
+}
+
+.nutrition_value__title {
+  font-weight: 900;
+  font-size: smaller;
+}

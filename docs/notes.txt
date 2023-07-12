@@ -1,6 +1,6 @@
 From mom:
 
-Tags, maybe a drop down with ability to add categories also:
+Tags, maybe a drop down with ability to add additional tags also:
 
 Appetizers,
 Breakfast,

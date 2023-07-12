@@ -1,15 +1,13 @@
-import Link from "next/link";
+import NavButton from "./NavButton";
 
 const Navbar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link href={"/"}>Home</Link>
-        </li>
-        <li>
-          <Link href={"/recipe"}>Recipes</Link>
-        </li>
+    <nav className="bg-slate-900">
+      <ul className="list-none">
+        <NavButton href={"/"}>
+          <img src="/chewie-outline.png" alt="Chewbarka Tuteja Kapur" className="object-contain h-16"></img>
+        </NavButton>
+        <NavButton href={"/recipes"}>Recipes</NavButton>
       </ul>
     </nav>
   );

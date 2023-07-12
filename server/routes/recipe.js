@@ -10,4 +10,6 @@ router.use(express.json());
 
 router.get("/", recipeController.getRecipe);
 
+router.post("/", recipeController.postRecipe);
+
 module.exports = router;

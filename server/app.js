@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
-const PORT = 8000;
+
+require("dotenv").config();
+const PORT = process.env.PORT;
 
 // Routes
 const homeRouter = require("./routes/home");
@@ -10,7 +12,7 @@ app.use("/recipes", recipeRouter);
 
 app.use("/", homeRouter);
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
   console.log(`Ctrl-Click http://localhost:${PORT}`);
 });

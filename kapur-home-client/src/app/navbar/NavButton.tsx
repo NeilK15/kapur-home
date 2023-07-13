@@ -9,9 +9,9 @@ type Props = {
 
 const NavButton = ({ href, className, children }: Props) => {
   return (
-    <li className="float-left inline mr-5">
+    <li className="mr-1">
       <Link href={href}>
-        <button className="bg-cyan-400 hover:bg-cyan-600 p-3 text-black h-16">{children}</button>
+        <button className="bg-cyan-300 hover:bg-cyan-200 p-3 text-black h-full">{children}</button>
       </Link>
     </li>
   );

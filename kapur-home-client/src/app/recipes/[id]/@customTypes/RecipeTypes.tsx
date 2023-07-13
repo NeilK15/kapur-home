@@ -1,41 +1,3 @@
-export type RecipeNutritionValue = {
-  title: string;
-  value: number;
-  unit: string;
-};
-
-export type RecipeIngredient = {
-  group: boolean;
-  name: string;
-  amount: {
-    imperial: {
-      amt: number;
-      unit: string;
-    };
-    metric: {
-      amt: number;
-      unit: string;
-    };
-  };
-  notes: string;
-};
-
-export type RecipeIngredientGroup = {
-  group: boolean;
-  title: string;
-  ingredients: RecipeIngredient[];
-};
-
-export type RecipeInstruction = {
-  instruction: string;
-  imageUrl: string;
-};
-
-export type RecipeInstructionGroup = {
-  name: string;
-  instructions: RecipeInstruction[];
-};
-
 export type RecipeData = {
   id: number;
   name: string;
@@ -53,8 +15,28 @@ export type RecipeData = {
   url: string;
   imageUrl: string;
   description: string;
-  ingredients: Array<RecipeIngredient | RecipeIngredientGroup>;
-  instructions: Array<RecipeInstruction | RecipeInstructionGroup>;
-  tips: Array<{ title: string; tip: string }>;
+  ingredientGroups: Array<{
+    title: string;
+    ingredients: Array<{
+      name: string;
+      amount: {
+        amt: string;
+        unit: string;
+        scale: string;
+      };
+      notes: string;
+    }>;
+  }>;
+  instructionGroups: Array<{
+    title: string;
+    instructions: Array<{
+      instruction: string;
+      imageUrl: string;
+    }>;
+  }>;
+  notes: Array<{
+    title: string;
+    note: string;
+  }>;
   nutrition: Array<{ title: string; value: number; unit: string }>;
 };

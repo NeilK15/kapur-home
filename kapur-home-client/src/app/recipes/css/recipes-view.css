@@ -1,0 +1,24 @@
+.recipe_tile {
+  width: 200px;
+  height: 150px;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  background-blend-mode: multiply;
+
+  margin: 5px;
+  border-radius: 3%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+}
+
+.recipe_tile:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.recipe_tile__title {
+  text-align: center;
+}

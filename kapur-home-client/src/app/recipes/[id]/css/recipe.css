@@ -46,11 +46,13 @@ h3.header {
 .recipe__image {
   max-width: 35%;
   object-fit: fill;
+
+  border-radius: 5%;
 }
 /* End header and image stuff */
 
 .recipe__description {
-  font-size: 2vh;
+  font-size: 1.8vh;
   font-weight: light;
 }
 
@@ -62,10 +64,11 @@ h3.header {
 }
 
 /* Before attributes */
-.before_clock::before {
-  font-size: 150%;
-  vertical-align: middle;
-  content: "🕥 ";
+/* .before_clock::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: "⏲ ";
 }
 
 .before_utensils::before {
@@ -78,7 +81,7 @@ h3.header {
   font-size: 150%;
   vertical-align: middle;
   content: "👤 ";
-}
+} */
 
 .detail {
   font-size: 11 0%;

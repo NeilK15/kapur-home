@@ -1,0 +1,4 @@
+# Beautiful soup
+beautifulsoup4
+
+requests

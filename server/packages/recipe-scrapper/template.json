@@ -1,0 +1,158 @@
+{
+    "id": 1,
+    "name": "Best Skillet Breakfast Potatoes",
+    "prepTime": 5,
+    "prepTimeUnit": "mins",
+    "cookTime": 10,
+    "cookTimeUnit": "mins",
+    "totalTime": 15,
+    "totalTimeUnit": "mins",
+    "course": "Dinner",
+    "cuisine": "Indian",
+    "keywords": [
+        "breakfast potatoes",
+        "breakfast potatoes recipe",
+        "easy breakfast potatoes"
+    ],
+    "servings": 4,
+    "author": "Neil Kapur",
+    "url": "https://google.com",
+    "imageUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/10/Breakfast-Potatoes-1-4-450x450.jpg",
+    "description": "These easy breakfast potatoes are reminiscent of your classic diner-style home fries that are warm and crispy with perfectly browned edges. A perfect way to complete your breakfast spread!",
+    "ingredientGroups": [
+        {
+            "title": "For Potatoes",
+            "ingredients": [
+                {
+                    "name": "Potatoes",
+                    "amount": {
+                        "imperial": {
+                            "amt": 1.5,
+                            "unit": "pounds"
+                        },
+                        "metric": {
+                            "amt": 680.36,
+                            "unit": "grams"
+                        }
+                    },
+                    "notes": "optional"
+                }
+            ]
+        }
+    ],
+    "instructions": [
+        {
+            "instruction": "Peel and dice the potatoes",
+            "imageUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/09/How-to-Make-Breakfast-Potatoes-1.jpg",
+            "group": false
+        },
+        {
+            "group": true,
+            "name": "For the broth",
+            "instructions": [
+                {
+                    "instruction": "Prepare the broth",
+                    "imageUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/09/How-to-Make-Breakfast-Potatoes-1.jpg",
+                    "group": false
+                },
+                {
+                    "instruction": "Eat the broth",
+                    "imageUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/09/How-to-Make-Breakfast-Potatoes-1.jpg",
+                    "group": false
+                }
+            ]
+        },
+        {
+            "instruction": "Peel and dice the potatoes",
+            "imageUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/09/How-to-Make-Breakfast-Potatoes-1.jpg",
+            "group": false
+        },
+        {
+            "instruction": "Peel and dice the potatoes",
+            "imageUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/09/How-to-Make-Breakfast-Potatoes-1.jpg",
+            "group": false
+        }
+    ],
+    "tips": [
+        {
+            "title": "To Store",
+            "tip": "Put in the fridge"
+        },
+        {
+            "title": "To Reheat",
+            "tip": "Use the microwave"
+        }
+    ],
+    "nutrition": [
+        {
+            "title": "Calories",
+            "value": 300,
+            "unit": "cals"
+        },
+        {
+            "title": "Carbohydrates",
+            "value": 300,
+            "unit": "g"
+        },
+        {
+            "title": "Protein",
+            "value": 30,
+            "unit": "g"
+        },
+        {
+            "title": "Fat",
+            "value": 15,
+            "unit": "g"
+        },
+        {
+            "title": "Saturated Fat",
+            "value": 5,
+            "unit": "g"
+        },
+        {
+            "title": "Sodium",
+            "value": 400,
+            "unit": "g"
+        },
+        {
+            "title": "Potassium",
+            "value": 30,
+            "unit": "g"
+        },
+        {
+            "title": "Fiber",
+            "value": 3,
+            "unit": "g"
+        },
+        {
+            "title": "Sugar",
+            "value": 10,
+            "unit": "g"
+        },
+        {
+            "title": "Vitamin A",
+            "value": 123,
+            "unit": "iu"
+        },
+        {
+            "title": "Vitamin C",
+            "value": 25,
+            "unit": "mg"
+        },
+        {
+            "title": "Calcium",
+            "value": 24,
+            "unit": "mg"
+        },
+        {
+            "title": "Iron",
+            "value": 1,
+            "unit": "mg"
+        }
+    ],
+    "metadata": {
+        "dateCreated": "2020-10-01",
+        "dateTimeExtracted": "2023-07-02 15:00:00.000",
+        "extractionMethod": "web-scrapping"
+    }
+}

@@ -37,27 +37,31 @@ function RecipeTile({ id, title, imageUrl, details }: RecipeTileProps) {
 
   const renderedDetails = (
     <>
-      <div className="details__prep_time">
-        Prep Time:{" "}
-        <span className="time_value">
-          <span>{details.prepTime}</span> <span>{details.prepTimeUnit}</span>
-        </span>
-      </div>
-      <div className="details__cook_time">
-        Cook Time:{" "}
-        <span className="time_value">
-          <span>{details.cookTime}</span> <span>{details.cookTimeUnit}</span>
-        </span>
-      </div>
-      <div className="details__total_time">
-        Total Time:{" "}
-        <span className="time_value">
-          <span>{details.totalTime}</span> <span>{details.totalTimeUnit}</span>
-        </span>
+      <div className="details__times">
+        <div className="details__prep_time">
+          Prep Time{" "}
+          <span className="time_value">
+            <span>{details.prepTime}</span> <span>{details.prepTimeUnit}</span>
+          </span>
+        </div>
+        <div className="details__cook_time">
+          Cook Time{" "}
+          <span className="time_value">
+            <span>{details.cookTime}</span> <span>{details.cookTimeUnit}</span>
+          </span>
+        </div>
+        <div className="details__total_time">
+          Total Time{" "}
+          <span className="time_value">
+            <span>{details.totalTime}</span> <span>{details.totalTimeUnit}</span>
+          </span>
+        </div>
       </div>
       {/* <hr /> */}
       <div className="details__description">
-        <span>{details.description}</span>
+        <span>
+          {details.description.length <= 300 ? details.description : `${details.description.slice(0, 300).trim()}...`}
+        </span>
       </div>
     </>
   );

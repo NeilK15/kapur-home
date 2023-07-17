@@ -2,7 +2,7 @@ const { PythonShell } = require("python-shell");
 const path = require("path");
 
 const Scraper = class {
-  static fetchRecipeFromUrl(url) {
+  static fetchRecipeFromUrl(url, cb) {
     if (!url) {
       // Throw an error if url invalid
       throw SyntaxError("Please provide a url");
@@ -29,7 +29,7 @@ const Scraper = class {
           console.log("The exit signal was: " + signal);
           console.log("finished");
         });
-        return obj;
+        cb(obj);
       } catch (e) {
         if (e instanceof SyntaxError) console.log("Text isn't valid JSON\n", message, "\nTrying the next message...");
         else {

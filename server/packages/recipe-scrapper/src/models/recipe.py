@@ -4,7 +4,13 @@ import time
 from datetime import datetime
 import json
 
-from src.models.recipe_parts import Time, IngredientGroup, Nutrition, Instruction, Tip
+from src.models.recipe_parts import (
+    Time,
+    IngredientGroup,
+    Nutrition,
+    InstructionGroup,
+    Tip,
+)
 
 
 class Recipe:
@@ -22,8 +28,8 @@ class Recipe:
         url: str = None,
         image_url: str = None,
         description: str = None,
-        ingredient_groups: List[IngredientGroup] = None,
-        instructions: List[Instruction] = None,
+        ingredient_groups: List[IngredientGroup] = [],
+        instruction_groups: List[InstructionGroup] = [],
         tips: List[Tip] = None,
         nutrition: Nutrition = None,
         date_created: str = None,
@@ -48,7 +54,7 @@ class Recipe:
         # Ingredients
         self.__ingredient_groups: List[IngredientGroup] = ingredient_groups
 
-        self.__instructions: List[Instruction] = instructions
+        self.__instruction_groups: List[InstructionGroup] = instruction_groups
         self.__tips: List[Tip] = tips
 
         self.__nutrition: Nutrition = nutrition
@@ -113,8 +119,8 @@ class Recipe:
         return self.__ingredient_groups
 
     @property
-    def instructions(self) -> List[Instruction]:
-        return self.__instructions
+    def instruction_groups(self) -> List[InstructionGroup]:
+        return self.__instruction_groups
 
     @property
     def tips(self) -> List[Tip]:
@@ -142,12 +148,13 @@ class Recipe:
             "cuisine": self.__cuisine,
             "keywords": self.__keywords,
             "servings": self.__servings,
+            "name": self.__name,
             "author": self.__author,
             "url": self.__url,
             "imageUrl": self.__image_url,
             "description": self.__description,
             "ingredientGroups": [ingr.to_json() for ingr in self.__ingredient_groups],
-            "instructions": self.__instructions,
+            "instructionGroups": self.__instruction_groups,
             "tips": self.__tips,
             "nutrition": self.__nutrition,
             "metadata": {

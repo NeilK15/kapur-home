@@ -1,12 +1,17 @@
+/* Css */
 import "../css/recipe.css";
 import "../css/testing.css";
-import Nutrition from "./Nutrition";
+
+/* Type imports */
 import { RecipeData } from "../@customTypes/RecipeTypes";
-import Description from "./Description";
-import IngredientGroup from "./ingredients/IngredientGroup";
-import Details from "./Details";
-import { ReactNode } from "react";
+
+/* Other recipe components */
 import Header from "./Header";
+import Details from "./Details";
+import Description from "./Description";
+import IngredientGroup from "./Ingredients";
+import InstructionGroup from "./Instructions";
+import Nutrition from "./Nutrition";
 
 type Props = {
   recipeData: RecipeData;
@@ -15,6 +20,10 @@ type Props = {
 const Recipe = ({ recipeData }: Props) => {
   const ingredientGroups = recipeData.ingredientGroups.map((ingredientGroup) => {
     return <IngredientGroup ingredientGroupData={ingredientGroup}></IngredientGroup>;
+  });
+
+  const instructionGroups = recipeData.instructionGroups.map((instructionGroupData) => {
+    return <InstructionGroup instructionGroupData={instructionGroupData} />;
   });
 
   const detailsData = {
@@ -34,20 +43,29 @@ const Recipe = ({ recipeData }: Props) => {
     <div className="recipe flex_recipe">
       <div className="recipe__header_and_image">
         <div className="recipe__info">
-          <h1 className="recipe__info__title">{recipeData.name}</h1>
+          {recipeData.name && <h1 className="recipe__info__title">{recipeData.name}</h1>}
           <Details {...detailsData} />
         </div>
         <img src={recipeData.imageUrl} alt={`Image of ${recipeData.name}`} className="recipe__image" />
       </div>
 
-      <Description>{recipeData.description}</Description>
+      {recipeData.description && <Description>{recipeData.description}</Description>}
 
-      <div>
-        <Header>Ingredients</Header>
-        <ul>{ingredientGroups}</ul>
-      </div>
+      {ingredientGroups.length > 0 && (
+        <div className="ingredients_container">
+          <Header>Ingredients</Header>
+          <ul className="ingredients_groups">{ingredientGroups}</ul>
+        </div>
+      )}
 
-      <Nutrition nutritionData={nutritionData} />
+      {instructionGroups.length > 0 && (
+        <div className="instructions_container">
+          <Header>Instructions</Header>
+          <ul className="instructions_groups">{instructionGroups}</ul>
+        </div>
+      )}
+
+      {nutritionData && <Nutrition nutritionData={nutritionData} />}
     </div>
   );
 };

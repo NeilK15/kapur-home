@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="flex items-center justify-center">
+    <main className="">
       <div>
         <h1>The home page is in progress yo!</h1>
         <img src="construction-work.gif"></img>

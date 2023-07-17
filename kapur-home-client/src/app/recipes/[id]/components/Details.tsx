@@ -1,9 +1,8 @@
 import "../css/recipe.css";
 
 import { RecipeData } from "../@customTypes/RecipeTypes";
-import Detail from "./Detail";
 
-type Props = {
+type DetailsProps = {
   prepTime: RecipeData["prepTime"];
   prepTimeUnit: RecipeData["prepTimeUnit"];
   cookTime: RecipeData["cookTime"];
@@ -14,7 +13,7 @@ type Props = {
   author: RecipeData["author"];
 };
 
-const Details = (recipeDetails: Props) => {
+const Details = (recipeDetails: DetailsProps) => {
   return (
     <ul className="recipe__info__details">
       <Detail before="clock" title="Prep Time">{`${recipeDetails.prepTime} ${recipeDetails.prepTimeUnit}`}</Detail>
@@ -23,6 +22,21 @@ const Details = (recipeDetails: Props) => {
       <Detail before="utensils" title="Servings">{`${recipeDetails.servings} servings`}</Detail>
       <Detail before="person" title="Author">{`${recipeDetails.author}`}</Detail>
     </ul>
+  );
+};
+
+type DetailProps = {
+  before?: "clock" | "person" | "utensils";
+  title: string;
+  children: string;
+};
+
+const Detail = (props: DetailProps) => {
+  return (
+    <li className={`detail before_${props.before}`}>
+      <span className="detail__title">{`${props.title}: `}</span>
+      <span className="detail__content">{props.children}</span>
+    </li>
   );
 };
 

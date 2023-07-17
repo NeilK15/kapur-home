@@ -1,8 +1,14 @@
-.recipe_tile {
-  width: 200px;
-  height: 150px;
+.recipe_tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  background-color: rgba(0, 0, 0, 0.7);
+.recipe_tile {
+  width: 30vw;
+  height: 45vh;
+
+  background-color: rgba(0, 0, 0, 0.4);
   background-blend-mode: multiply;
 
   margin: 5px;
@@ -16,9 +22,73 @@
 }
 
 .recipe_tile:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  animation: darken;
+  animation-duration: 300ms;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .recipe_tile__title {
   text-align: center;
+}
+
+.recipe_tiles a {
+  text-decoration: none;
+  color: white;
+}
+
+.recipe_tile--details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  animation: reveal;
+  animation-duration: 300ms;
+}
+
+.recipe_tile--details > div {
+  font-size: 18px;
+  margin-left: 3%;
+  margin-right: 3%;
+  text-align: center;
+}
+
+.details__prep_time {
+  width: 27%;
+  order: 0;
+}
+.details__cook_time {
+  width: 27%;
+  order: 1;
+}
+.details__total_time {
+  width: 27%;
+  order: 2;
+}
+.details__description {
+  order: 4;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.time_value {
+  display: inline-block;
+}
+
+@keyframes darken {
+  from {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+  }
+}
+
+@keyframes reveal {
+  from {
+    color: rgba(255, 255, 255, 0);
+  }
+  to {
+    color: white;
+  }
 }

@@ -1,5 +1,5 @@
 export type RecipeData = {
-  id: number;
+  id: string;
   name: string;
   prepTime: number;
   prepTimeUnit: string;

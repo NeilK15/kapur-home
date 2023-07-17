@@ -8,8 +8,8 @@ const recipeController = require("../controllers/recipe");
 router.use(cors());
 router.use(express.json());
 
-router.get("/", recipeController.getRecipe);
+router.get("/fetchRecipeById", recipeController.getRecipeById);
 
-router.post("/", recipeController.postRecipe);
+router.post("/addRecipeByUrl", recipeController.postRecipeByUrl);
 
 module.exports = router;

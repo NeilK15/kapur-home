@@ -143,4 +143,13 @@
   .navbar {
     width: 560px;
   }
+
+  .navbar__search_bar {
+    width: 50%;
+  }
+
+  .navbar__search_item {
+    margin-right: 0;
+    /* margin-left: 0; */
+  }
 }

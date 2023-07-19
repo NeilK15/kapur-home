@@ -41,6 +41,11 @@ h3.header {
   font-weight: bolder;
 }
 
+.recipe__info__title a {
+  color: white;
+  text-decoration: none;
+}
+
 .recipe__image {
   max-width: 35%;
   object-fit: fill;
@@ -117,7 +122,7 @@ h3.header {
 
 .ingredient_group__header {
   /* text-align: center; */
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
 }
 
@@ -129,8 +134,8 @@ h3.header {
 
 .ingredient {
   margin-bottom: 8px;
-  font-weight: 500;
-  font-size: 17px;
+  font-weight: 300;
+  font-size: 20px;
 }
 
 .ingredient__amt {
@@ -146,21 +151,54 @@ h3.header {
 }
 
 .ingredient__link {
-  color: rgb(48, 121, 248);
+  color: rgb(144, 185, 255);
+  text-decoration: none;
 }
 
 .ingredient__link:hover {
+  text-decoration: underline;
 }
 
 .ingredient__link:visited {
-  color: rgb(48, 121, 248);
+  color: rgb(144, 185, 255);
 }
 
 /* Instruction Styling */
 .instructions_container {
-}
+  .instructions_groups {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-.instructions_groups {
+  .instruction_group {
+    .instruction_group__title {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .instruction_group__instructions {
+      /* list-style: none; */
+      margin: none;
+      margin-left: 50px;
+      padding: 0;
+
+      .instruction_item {
+        font-size: 20px;
+        font-weight: 300;
+
+        .instruction_item__img {
+          max-height: 500px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .instruction_item__text {
+        }
+      }
+    }
+  }
 }
 
 /* Phone specific styling */

@@ -118,15 +118,15 @@
       "instructions": [
         {
           "instruction": "Press and cube the tofu if you haven't already and add it to a bowl.",
-          "imageUrl": ""
+          "imageUrl": "https://picsum.photos/200/300"
         },
         {
           "instruction": "In a small bowl mix the soy sauce, gochujang, garlic powder, and sesame oil and pour it over the tofu. Toss well to coat. Add 2 teaspoons of the cornstarch and toss well. If the mixture is still somewhat wet then add the rest of the cornstarch and toss well.",
-          "imageUrl": ""
+          "imageUrl": "https://picsum.photos/600"
         },
         {
           "instruction": "Then either bake the tofu: transfer the tofu cubes to a parchment-lined baking sheet and bake it at 400ºF (205c) for 20-25 minutes , or transfer them to a hot wok with a teaspoon of oil and cook them until they are crisp on most of the edges, about 5-6 minutes.",
-          "imageUrl": ""
+          "imageUrl": "https://picsum.photos/400/200"
         }
       ]
     },
@@ -139,7 +139,7 @@
         },
         {
           "instruction": "Bring the mixture to a boil then gradually add the rest of the broth. Mix and Bring to a good rolling boil, then add your noodles. Press to submerge in the boiling broth, then cook them according to the time on the packaging. Ramen noodles will cook pretty quickly, within 3-4 minutes, while udon noodles will take around 7-8 minutes.",
-          "imageUrl": ""
+          "imageUrl": "https://picsum.photos/200/400"
         },
         {
           "instruction": "Once the noodles are cooked to your preference, switch off the heat. Taste and adjust salt and flavor. If you want it sweeter then you can add more maple syrup. You can more salt if needed or some black pepper for extra heat.",
@@ -151,7 +151,7 @@
         },
         {
           "instruction": "To make ahead: cook the noodles separately and store. Crisp up the tofu and store. Add only 3 cups broth and boil and refrigerate after cooling. To serve, bring the broth to a boil, add noodles and serve. Refrigerate for up 3 days.",
-          "imageUrl": ""
+          "imageUrl": "https://picsum.photos/400"
         }
       ]
     }

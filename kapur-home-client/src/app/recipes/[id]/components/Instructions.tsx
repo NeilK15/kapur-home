@@ -10,9 +10,9 @@ export const InstructionGroup = ({ instructionGroupData }: InstructionGroupProps
   });
 
   return (
-    <li>
-      <h3>{instructionGroupData.title}</h3>
-      <ul>{instructions}</ul>
+    <li className="instruction_group">
+      <h3 className="instruction_group__title">{instructionGroupData.title}</h3>
+      <ol className="instruction_group__instructions">{instructions}</ol>
     </li>
   );
 };
@@ -23,10 +23,10 @@ type InstructionProps = {
 
 const Instruction = ({ instructionData }: InstructionProps) => {
   return (
-    <li>
-      <p>{instructionData.instruction}</p>
+    <li className="instruction_item">
+      <p className="instruction_item__text">{instructionData.instruction}</p>
       {instructionData.imageUrl != undefined && instructionData.imageUrl != "" && (
-        <img src={instructionData.imageUrl}></img>
+        <img className="instruction_item__img" src={instructionData.imageUrl}></img>
       )}
     </li>
   );

@@ -43,7 +43,13 @@ const Recipe = ({ recipeData }: Props) => {
     <div className="recipe flex_recipe">
       <div className="recipe__header_and_image">
         <div className="recipe__info">
-          {recipeData.name && <h1 className="recipe__info__title">{recipeData.name}</h1>}
+          {recipeData.name && (
+            <h1 className="recipe__info__title">
+              <a href={recipeData.url} target="_blank">
+                {recipeData.name}
+              </a>
+            </h1>
+          )}
           <Details {...detailsData} />
         </div>
         <img src={recipeData.imageUrl} alt={`Image of ${recipeData.name}`} className="recipe__image" />
@@ -61,7 +67,7 @@ const Recipe = ({ recipeData }: Props) => {
       {instructionGroups.length > 0 && (
         <div className="instructions_container">
           <Header>Instructions</Header>
-          <ul className="instructions_groups">{instructionGroups}</ul>
+          <ol className="instructions_groups">{instructionGroups}</ol>
         </div>
       )}
 

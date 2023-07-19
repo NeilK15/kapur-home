@@ -86,7 +86,7 @@ const NavDropdown = ({ key, href, subMenus, children }: NavDropdownProps) => {
 const SearchBar = () => {
   return (
     <li key={10} className="navbar__search_item">
-      <input type="search" name="search" id="search" className="navbar__search_bar" />
+      <input type="search" name="search" id="search" className="navbar__search_bar" autoComplete="off" />
       <input type="submit" value="Search" className="search_bar__suffix" />
     </li>
   );

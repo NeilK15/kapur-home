@@ -35,13 +35,18 @@ const Ingredient = ({ ingredientData }: IngredientProps) => {
         {ingredientData.amount.amt.length !== 0 && ingredientData.amount.unit.length !== 0 && `of `}
       </span>
       <span className="ingredient__name">
-        <a
-          href={`https://giantfood.com/product-search/${ingredientData.name}`}
-          target="_blank"
-          className="ingredient__link"
-        >
-          {ingredientData.name}
-        </a>
+        {ingredientData.name.split(", ").map((ingName, index, arr) => (
+          <>
+            <a
+              href={`https://giantfood.com/product-search/${ingName.replace(" ", "%20")}`}
+              target="_blank"
+              className="ingredient__link"
+            >
+              {ingName}
+            </a>
+            {index !== arr.length - 1 && <span>, </span>}
+          </>
+        ))}
       </span>
     </li>
   );

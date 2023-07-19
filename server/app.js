@@ -1,8 +1,11 @@
 const express = require("express");
+const markZuckerberg = require("./middleware/logging");
 const app = express();
 
 require("dotenv").config();
 const PORT = process.env.PORT;
+
+app.use(markZuckerberg);
 
 // Routes
 const homeRouter = require("./routes/home");

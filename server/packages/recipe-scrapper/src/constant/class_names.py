@@ -24,3 +24,10 @@ INGREDIENT_NAME = "wprm-recipe-ingredient-name"
 INGREDIENT_UNIT = "wprm-recipe-ingredient-unit"
 INGREDIENT_AMOUNT = "wprm-recipe-ingredient-amount"
 INGREDIENT_NOTES = "wprm-recipe-ingredient-notes"
+
+# For instructions
+INSTRUCTION_GROUP = "wprm-recipe-instruction-group"
+INSTRUCTION_GROUP_NAME = "wprm-recipe-instruction-group-name"
+INSTRUCTION = "wprm-recipe-instruction"
+INSTRUCTION_TEXT = "wprm-recipe-instruction-text"
+INSTRUCTION_IMAGE = "wprm-recipe-instruction-image"

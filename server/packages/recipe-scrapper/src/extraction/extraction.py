@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup, Tag
 
 from src.utils import *
 from src.constant import *
-from src.models.recipe_parts import Time, IngredientGroup, Ingredient
+from src.models.recipe_parts import *
 from .time_type import TimeType
 
 
@@ -52,35 +52,14 @@ class Extraction:
     def extract_image_url(soup: BeautifulSoup) -> str:
         # Check if image is lazy loaded, if it is, then get the lazy img src
 
-        img = soup.find(True, class_=class_names.IMAGE_URL).img
+        img = soup.find(True, class_=class_names.IMAGE_URL)
 
-        try:
-            img_set = img["data-lazy-srcset"].split(",")
-            img_url_and_size_list = []
-
-            max_size_url = ""
-            max_size = 0
-            for i in img_set:
-                [img_url, img_size] = i.strip().split(" ")
-                img_size = get_int_from_str(img_size)
-                print(f"Size: {img_size}")
-
-                if img_size > max_size:
-                    max_size_url = img_url
-                    max_size = img_size
-        except Exception as e:
-            try:
-                image = img.get("src")
-                return image
-            except Exception as e:
-                return "[NO IMAGE FOUND]"
-
-        return max_size_url
+        return process_img(img)
 
     def extract_description(soup) -> str:
         return str(get_text_from_class_name(soup, class_names.DESCRIPTION))
 
-    def extract_ingredients(soup: BeautifulSoup) -> List:
+    def extract_ingredients(soup: BeautifulSoup) -> List[IngredientGroup]:
         ingredients = []
         for tag in soup.find_all(True, class_=class_names.INGREDIENT_GROUP):
             group = []
@@ -107,6 +86,27 @@ class Extraction:
             )
 
         return ingredients
+
+    def extract_instructions(soup: BeautifulSoup) -> List[InstructionGroup]:
+        instruction_groups = []
+        for tag in soup.find_all(True, class_=class_names.INSTRUCTION_GROUP):
+            instructions = []
+            tag: Tag
+
+            for innerTag in get_tags_from_class_names(tag, [class_names.INSTRUCTION]):
+                text = get_text_from_class_name(innerTag, class_names.INSTRUCTION_TEXT)
+                image = process_img(
+                    innerTag.find(True, class_=class_names.INSTRUCTION_IMAGE)
+                )
+
+                instructions.append(Instruction(text, image))
+
+            group_name = get_text_from_class_name(
+                tag, class_names.INSTRUCTION_GROUP_NAME
+            )
+            instruction_groups.append(InstructionGroup(group_name, instructions))
+
+        return instruction_groups
 
     def _attempt_class_name_extraction(self) -> Iterable[Tag]:
         return get_text_from_class_name(self._soup, self._class_names)

@@ -154,7 +154,9 @@ class Recipe:
             "imageUrl": self.__image_url,
             "description": self.__description,
             "ingredientGroups": [ingr.to_json() for ingr in self.__ingredient_groups],
-            "instructionGroups": self.__instruction_groups,
+            "instructionGroups": [
+                instr.to_json() for instr in self.__instruction_groups
+            ],
             "tips": self.__tips,
             "nutrition": self.__nutrition,
             "metadata": {

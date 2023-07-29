@@ -12,7 +12,7 @@ from src.models import Recipe
 
 
 class RecipeScraper:
-    def __init__(self, dataPath: str = None, url: str = None):
+    def __init__(self, store: bool = False, dataPath: str = None, url: str = None):
         """
         This method initializes a Recipe Scrapper and creates the necessary files
         and directories needed for processing recipes gathered via html. If no dataPath
@@ -37,50 +37,52 @@ class RecipeScraper:
         if url == None:
             raise SyntaxError("Enter valid URL")
 
-        if dataPath == None or not os.path.exists(dataPath):
-            id = uuid.uuid1()
-            # print(id)
-            cwd = os.getcwd()
-            dataPath = "/".join([cwd, f"data-{id}"])
-            make_directory(dataPath)
-
         # Setting the variables
         self.__url = url
         self.__soup = make_request(url)
+        self.__store = store
 
-        # Creating the path strings and then creating the folders
-        # raw_path = "/".join([dataPath, "raw"])
-        staged_path = "/".join([dataPath, "staged"])
-        finalized_path = "/".join([dataPath, "finalized"])
+        if store:
+            if dataPath == None or not os.path.exists(dataPath):
+                id = uuid.uuid1()
+                # print(id)
+                cwd = os.getcwd()
+                dataPath = "/".join([cwd, f"data-{id}"])
+                make_directory(dataPath)
 
-        # make_directory(raw_path)
-        make_directory(staged_path)
-        make_directory(finalized_path)
+            # Creating the path strings and then creating the folders
+            # raw_path = "/".join([dataPath, "raw"])
+            staged_path = "/".join([dataPath, "staged"])
+            finalized_path = "/".join([dataPath, "finalized"])
 
-        # Lists of file to be created
-        # raw_files = [
-        #     "info_raw.txt",
-        #     "ingredients_raw.txt",
-        #     "instructions_raw.txt",
-        #     "tips_raw.txt",
-        #     "nutrition_raw.txt",
-        #     "metadata_raw.txt",
-        # ]
-        staged_files = ["review.json"]
-        finalized_files = ["final.json"]
+            # make_directory(raw_path)
+            make_directory(staged_path)
+            make_directory(finalized_path)
 
-        # Making all the files
-        # for file in raw_files:
-        #     make_file(raw_path, file)
+            # Lists of file to be created
+            # raw_files = [
+            #     "info_raw.txt",
+            #     "ingredients_raw.txt",
+            #     "instructions_raw.txt",
+            #     "tips_raw.txt",
+            #     "nutrition_raw.txt",
+            #     "metadata_raw.txt",
+            # ]
+            staged_files = ["review.json"]
+            finalized_files = ["final.json"]
 
-        for file in staged_files:
-            make_file(staged_path, file)
+            # Making all the files
+            # for file in raw_files:
+            #     make_file(raw_path, file)
 
-        for file in finalized_files:
-            make_file(finalized_path, file)
+            for file in staged_files:
+                make_file(staged_path, file)
 
-        self.__review_path = staged_path + "/review.json"
-        self.__final_path = staged_path + "/final.json"
+            for file in finalized_files:
+                make_file(finalized_path, file)
+
+            self.__review_path = staged_path + "/review.json"
+            self.__final_path = staged_path + "/final.json"
 
         self.initialized = True
 
@@ -134,11 +136,13 @@ class RecipeScraper:
             description=description,
             ingredient_groups=self._extract_ingredients(),
             instruction_groups=self._extract_instructions(),
+            tips=self._extract_tips(),
         )
 
         # Generate the recipe in json and add to data/stage/review.json
-        with open(self.__review_path, "w") as review:
-            review.write(recipe.to_json())
+        if self.__store:
+            with open(self.__review_path, "w") as review:
+                review.write(recipe.to_json())
 
         return recipe
 
@@ -184,3 +188,6 @@ class RecipeScraper:
     def _extract_instructions(self):
         """Returns an instruction object with the instructions populated"""
         return Extraction.extract_instructions(self.__soup)
+
+    def _extract_tips(self):
+        return Extraction.extract_notes(self.__soup)

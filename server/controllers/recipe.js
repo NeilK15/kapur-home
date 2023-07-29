@@ -1,19 +1,59 @@
 // Requirements
 const scraper = require("recipe-scrapper");
 
+// Schema
+const recipeSchema = require("../models/recipe").recipeSchema;
+const { default: mongoose } = require("mongoose");
+
 // Temp data
 const sampleData = require("../data/sample_recipe_data.json");
 
+exports.getRecipes = (req, res, next) => {
+  const filter = req.query.filter;
+  const limit = req.query.limit;
+
+  const RecipeModel = mongoose.model("Recipe", recipeSchema);
+
+  // Add filter implementation later
+  RecipeModel.find()
+    .limit(limit)
+    .then((recipeDocuments) => {
+      return recipeDocuments.map((recipeDocument) => {
+        return recipeDocument.toJSON();
+      });
+    })
+    .then((structuredRecipeData) => {
+      res.json(structuredRecipeData).status(200);
+    })
+    .catch((err) => {
+      console.log("An error occured in GET /recipes");
+    });
+};
+
 // Only used when getting a specific recipe (id will be provided)
 exports.getRecipeById = (req, res, next) => {
-  console.log(req.query);
+  console.log("=== GET /recipes/fetchRecipeById ===");
 
+  const id = req.query.id;
+  console.log(id);
+  // console.log(id);
   /*
     Query params:
     id: id of recipe
   */
 
-  res.json(sampleData).status(200);
+  const RecipeModel = mongoose.model("Recipe", recipeSchema);
+  const recipe = RecipeModel.findById(id)
+    .then((recipeData) => {
+      res.json(recipeData.toJSON()).status(200);
+      console.log(recipeData.toJSON());
+    })
+    .catch((err) => {
+      console.log("An error occured in GET /recipes/fetchRecipeById");
+      res.status(400);
+    });
+
+  // res.json(sampleData).status(200);
 };
 
 exports.postRecipeByUrl = (req, res, next) => {
@@ -42,6 +82,15 @@ exports.postRecipeByUrl = (req, res, next) => {
     }
 
     // Add the json file to the database
+    const RecipeModel = mongoose.model("Recipe", recipeSchema);
+
+    const recipeData = { ...recipeJson };
+    if (recipeData["id"]) {
+      delete recipeData["id"];
+    }
+
+    const recipe = new RecipeModel(recipeData);
+    recipe.save().then(() => console.log(recipe));
 
     // Return the id of the newly generated json
 

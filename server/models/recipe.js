@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const recipeSchema = new mongoose.Schema(
+exports.recipeSchema = new mongoose.Schema(
   {
     name: String, // Breakfast Potatoes
     prepTime: Number,
@@ -11,14 +11,19 @@ const recipeSchema = new mongoose.Schema(
     totalTime: Number,
     totalTiemUnit: String,
     courses: [String], //
-    cuisine: [String],
+    cuisine: String,
     keywords: [String],
     servings: Number,
     author: String,
-    url: URL,
-    imageUrl: URL,
+    url: String,
+    imageUrl: String,
     description: String,
-    tags: [recipeTagSchema], // Appetizers, Breakfast
+    tags: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ], // Appetizers, Breakfast
     ingredientGroups: [
       {
         title: String, // For the potatoes
@@ -26,7 +31,7 @@ const recipeSchema = new mongoose.Schema(
           {
             name: String, // Yukon Potatoes
             amount: {
-              amt: Number, // 1.5
+              amt: String, // 1.5
               unit: String, // pounds
               scale: String, // imperial or metric
             },
@@ -41,7 +46,7 @@ const recipeSchema = new mongoose.Schema(
         instructions: [
           {
             instruction: String, // Peel the potatoes
-            imageUrl: URL, // Image of peeling potatoes
+            imageUrl: String, // Image of peeling potatoes
           },
         ],
       },
@@ -63,7 +68,7 @@ const recipeSchema = new mongoose.Schema(
       dateAdded: Date,
     },
   },
-  { collection: DB_RECIPE_COLLECTION }
+  { collection: process.env.DB_RECIPE_COLLECTION }
 );
 
 const recipeTagSchema = mongoose.Schema(
@@ -71,5 +76,5 @@ const recipeTagSchema = mongoose.Schema(
     name: String,
     color: String,
   },
-  { collection: DB_TAG_COLLECTION }
+  { collection: process.env.DB_TAG_COLLECTION }
 );

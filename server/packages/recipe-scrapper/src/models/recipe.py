@@ -157,7 +157,7 @@ class Recipe:
             "instructionGroups": [
                 instr.to_json() for instr in self.__instruction_groups
             ],
-            "tips": self.__tips,
+            "tips": [tip.to_json() for tip in self.__tips],
             "nutrition": self.__nutrition,
             "metadata": {
                 "dateCreated": self.__date_created,

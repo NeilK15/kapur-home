@@ -31,3 +31,6 @@ INSTRUCTION_GROUP_NAME = "wprm-recipe-instruction-group-name"
 INSTRUCTION = "wprm-recipe-instruction"
 INSTRUCTION_TEXT = "wprm-recipe-instruction-text"
 INSTRUCTION_IMAGE = "wprm-recipe-instruction-image"
+
+# For tips
+NOTES = "wprm-recipe-notes"

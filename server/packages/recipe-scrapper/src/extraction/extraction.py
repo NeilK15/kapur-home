@@ -108,5 +108,23 @@ class Extraction:
 
         return instruction_groups
 
+    def extract_notes(soup: BeautifulSoup) -> List[Tip]:
+        tips = []
+
+        tags: List[Tag] = soup.find(True, class_=class_names.NOTES).find_all("li")
+        for tag in tags:
+            tag: Tag
+            title = ""
+
+            try:
+                title = tag.find("b").text
+            except:
+                pass
+
+            tip = Tip(title, tag.text.replace(title, "", 1))
+            tips.append(tip)
+
+        return tips
+
     def _attempt_class_name_extraction(self) -> Iterable[Tag]:
         return get_text_from_class_name(self._soup, self._class_names)

@@ -10,7 +10,7 @@ router.use(express.json());
 
 router.get("/", recipeController.getRecipes);
 
-router.get("/fetchRecipeById", recipeController.getRecipeById);
+router.get("/:id*", recipeController.getRecipeById);
 
 router.post("/addRecipeByUrl", recipeController.postRecipeByUrl);
 

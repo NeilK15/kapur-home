@@ -30,30 +30,44 @@ exports.getRecipes = (req, res, next) => {
     });
 };
 
-// Only used when getting a specific recipe (id will be provided)
+// Gets a specific recipe and/or field within the recipe
 exports.getRecipeById = (req, res, next) => {
-  console.log("=== GET /recipes/fetchRecipeById ===");
-
-  const id = req.query.id;
-  console.log(id);
-  // console.log(id);
-  /*
-    Query params:
-    id: id of recipe
-  */
-
+  const id = req.params["id"];
   const RecipeModel = mongoose.model("Recipe", recipeSchema);
-  const recipe = RecipeModel.findById(id)
+  RecipeModel.findById(id)
     .then((recipeData) => {
-      res.json(recipeData.toJSON()).status(200);
-      console.log(recipeData.toJSON());
+      const formattedData = recipeData.toJSON();
+
+      if (req.params[0]) {
+        const keys = req.params[0].slice(1).split("/"); // Array of the keys one after the other (e.g. ["ingredientGroups", 0, "ingredients"])
+        console.log(keys);
+        let element = formattedData;
+        keys.forEach((key) => {
+          key = !isNaN(parseInt(key)) ? parseInt(key) : key;
+
+          try {
+            element = element[key];
+            // console.log(element);
+          } catch (err) {
+            res.status(400);
+            return;
+          }
+        });
+        res.json(element).status(200);
+        console.log(`Sent:\n ${element}`);
+        return;
+
+        // const detailJson = JSON.parse(`"result": ${}`);
+        res.json(req.params);
+      } else {
+        res.json(formattedData).status(200);
+        console.log(`Sent recipe: ${formattedData._id}`);
+      }
     })
     .catch((err) => {
       console.log("An error occured in GET /recipes/fetchRecipeById");
       res.status(400);
     });
-
-  // res.json(sampleData).status(200);
 };
 
 exports.postRecipeByUrl = (req, res, next) => {

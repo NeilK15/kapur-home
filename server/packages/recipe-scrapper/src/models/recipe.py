@@ -144,7 +144,7 @@ class Recipe:
             "cookTimeUnit": self.__cook_time.unit,
             "totalTime": self.__total_time.value,
             "totalTimeUnit": self.__total_time.unit,
-            "course": self.__course,
+            "courses": self.__course,
             "cuisine": self.__cuisine,
             "keywords": self.__keywords,
             "servings": self.__servings,
@@ -157,7 +157,7 @@ class Recipe:
             "instructionGroups": [
                 instr.to_json() for instr in self.__instruction_groups
             ],
-            "tips": self.__tips,
+            "tips": [tip.to_json() for tip in self.__tips],
             "nutrition": self.__nutrition,
             "metadata": {
                 "dateCreated": self.__date_created,

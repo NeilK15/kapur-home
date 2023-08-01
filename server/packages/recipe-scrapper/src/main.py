@@ -20,7 +20,7 @@ def main():
     from lib.recipe_scraper import RecipeScraper
 
     scraper = RecipeScraper(
-        dataPath="/Users/nkapur/Local/kapur-home-stuff/kapur-home/server/packages/recipe-scrapper/data",
+        dataPath="/Users/nkapur/Local/WEBDEV/kapur-home-stuff/kapur-home/server/packages/recipe-scrapper/data",
         url=url,
     )
 

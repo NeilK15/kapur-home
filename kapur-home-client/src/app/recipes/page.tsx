@@ -3,14 +3,19 @@ import data from "../../sample-data/sample_recipe_list_data.json";
 import { RecipeData } from "../recipes/[id]/@customTypes/RecipeTypes";
 import RecipeTile from "./components/RecipeTile";
 import "./css/recipes-view.css";
+import { getRecipes } from "../../../lib/api";
+import { notFound } from "next/navigation";
 
-const Page = () => {
-  function getRecipeList(/* Params for filtering will go here */): Array<RecipeData> {
-    const res = data; // temporary
-    return res as Array<RecipeData>;
+async function Page() {
+  let recipes;
+
+  try {
+    recipes = await getRecipes(null, 10);
+  } catch (error) {
+    notFound();
   }
 
-  const recipeTiles = getRecipeList().map((recipe) => {
+  const recipeTiles = recipes.map((recipe) => {
     const detailsProps = {
       prepTime: recipe.prepTime,
       prepTimeUnit: recipe.prepTimeUnit,
@@ -23,7 +28,7 @@ const Page = () => {
 
     return (
       <RecipeTile
-        id={recipe.id}
+        id={recipe._id}
         title={recipe.name}
         imageUrl={recipe.imageUrl}
         details={{ ...detailsProps }}
@@ -32,6 +37,6 @@ const Page = () => {
   });
 
   return <div className="recipe_tiles">{recipeTiles}</div>;
-};
+}
 
 export default Page;

@@ -144,7 +144,7 @@ class Recipe:
             "cookTimeUnit": self.__cook_time.unit,
             "totalTime": self.__total_time.value,
             "totalTimeUnit": self.__total_time.unit,
-            "course": self.__course,
+            "courses": self.__course,
             "cuisine": self.__cuisine,
             "keywords": self.__keywords,
             "servings": self.__servings,

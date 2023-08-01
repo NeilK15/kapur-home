@@ -10,8 +10,12 @@ router.use(express.json());
 
 router.get("/", recipeController.getRecipes);
 
-router.get("/:id*", recipeController.getRecipeById);
+router.put("/:id", recipeController.putRecipe);
 
-router.post("/addRecipeByUrl", recipeController.postRecipeByUrl);
+router.post("/", recipeController.postRecipe);
+
+router.get("/:id*", recipeController.getRecipe);
+
+router.delete("/:id", recipeController.deleteRecipe);
 
 module.exports = router;

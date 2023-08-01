@@ -1,75 +1,80 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const recipeSchema = new mongoose.Schema(
-  {
-    name: String, // Breakfast Potatoes
-    prepTime: Number,
-    prepTiemUnit: String,
-    cookTime: Number,
-    cookTiemUnit: String,
-    totalTime: Number,
-    totalTiemUnit: String,
-    courses: [String], //
-    cuisine: [String],
-    keywords: [String],
-    servings: Number,
-    author: String,
-    url: URL,
-    imageUrl: URL,
-    description: String,
-    tags: [recipeTagSchema], // Appetizers, Breakfast
-    ingredientGroups: [
-      {
-        title: String, // For the potatoes
-        ingredients: [
-          {
-            name: String, // Yukon Potatoes
-            amount: {
-              amt: Number, // 1.5
-              unit: String, // pounds
-              scale: String, // imperial or metric
+exports.recipeSchema = new mongoose.Schema(
+    {
+        name: { type: String, default: null }, // Breakfast Potatoes
+        prepTime: { type: Number, default: null },
+        prepTiemUnit: { type: String, default: null },
+        cookTime: { type: Number, default: null },
+        cookTiemUnit: { type: String, default: null },
+        totalTime: { type: Number, default: null },
+        totalTiemUnit: { type: String, default: null },
+        courses: [{ type: String, default: null }], //
+        cuisine: { type: String, default: null },
+        keywords: [{ type: String, default: null }],
+        servings: { type: Number, default: null },
+        author: { type: String, default: null },
+        url: { type: String, default: null },
+        imageUrl: { type: String, default: null },
+        description: { type: String, default: null },
+        tags: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Tag",
             },
-            notes: String,
-          },
+        ], // Appetizers, Breakfast
+        ingredientGroups: [
+            {
+                title: { type: String, default: null }, // For the potatoes
+                ingredients: [
+                    {
+                        name: { type: String, default: null }, // Yukon Potatoes
+                        amount: {
+                            amt: { type: String, default: null }, // 1.5
+                            unit: { type: String, default: null }, // pounds
+                            scale: { type: String, default: null }, // imperial or metric
+                        },
+                        notes: { type: String, default: null },
+                    },
+                ],
+            },
         ],
-      },
-    ],
-    instructionGroups: [
-      {
-        title: String, // For the potatoes
-        instructions: [
-          {
-            instruction: String, // Peel the potatoes
-            imageUrl: URL, // Image of peeling potatoes
-          },
+        instructionGroups: [
+            {
+                title: { type: String, default: null }, // For the potatoes
+                instructions: [
+                    {
+                        instruction: { type: String, default: null }, // Peel the potatoes
+                        imageUrl: { type: String, default: null }, // Image of peeling potatoes
+                    },
+                ],
+            },
         ],
-      },
-    ],
-    tips: [
-      {
-        title: String, // To reheat
-        tip: String, // Place in microwave
-      },
-    ],
-    nutrition: [
-      {
-        title: String, // Calories, Fat, etc
-        value: Number, // 300, 350, 400, etc
-        unit: String, // cals, g, mg, iu, etc
-      },
-    ],
-    metadata: {
-      dateAdded: Date,
+        tips: [
+            {
+                title: { type: String, default: null }, // To reheat
+                note: { type: String, default: null }, // Place in microwave
+            },
+        ],
+        nutrition: [
+            {
+                title: { type: String, default: null }, // Calories, Fat, etc
+                value: { type: Number, default: null }, // 300, 350, 400, etc
+                unit: { type: String, default: null }, // cals, g, mg, iu, etc
+            },
+        ],
+        metadata: {
+            dateAdded: { type: Date, default: Date.now },
+        },
     },
-  },
-  { collection: DB_RECIPE_COLLECTION }
+    { collection: process.env.DB_RECIPE_COLLECTION }
 );
 
 const recipeTagSchema = mongoose.Schema(
-  {
-    name: String,
-    color: String,
-  },
-  { collection: DB_TAG_COLLECTION }
+    {
+        name: String,
+        color: String,
+    },
+    { collection: process.env.DB_TAG_COLLECTION }
 );

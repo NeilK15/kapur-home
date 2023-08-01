@@ -1,11 +1,13 @@
-"use client";
+import Link from "next/link";
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+export default function NotFound() {
   return (
     <div>
-      <h1 className="text-6xl">404 NOT FOUND</h1>
-      <h2>Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
+      <h2>Not Found</h2>
+      <p>Could not find requested resource</p>
+      <p>
+        View <Link href="/blog">all posts</Link>
+      </p>
     </div>
   );
 }

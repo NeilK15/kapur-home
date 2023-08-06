@@ -5,11 +5,11 @@ exports.recipeSchema = new mongoose.Schema(
     {
         name: { type: String, default: null }, // Breakfast Potatoes
         prepTime: { type: Number, default: null },
-        prepTiemUnit: { type: String, default: null },
+        prepTimeUnit: { type: String, default: null },
         cookTime: { type: Number, default: null },
-        cookTiemUnit: { type: String, default: null },
+        cookTimeUnit: { type: String, default: null },
         totalTime: { type: Number, default: null },
-        totalTiemUnit: { type: String, default: null },
+        totalTimeUnit: { type: String, default: null },
         courses: [{ type: String, default: null }], //
         cuisine: { type: String, default: null },
         keywords: [{ type: String, default: null }],

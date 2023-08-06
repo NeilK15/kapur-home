@@ -1,27 +1,20 @@
 "use client";
 
-import { addRecipeByUrl } from "@/app/request-handler";
 import "../css/recipes-view.css";
-import { Url } from "next/dist/shared/lib/router/router";
 import { useState } from "react";
 import Recipe from "../[id]/components/Recipe";
 import { RecipeData } from "../[id]/@customTypes/RecipeTypes";
+import { addRecipeByUrl } from "../../../../lib/api";
+import { redirect } from "next/navigation";
 
 const Page = () => {
   const [hasRecipe, setHasRecipe] = useState(false);
   const [recipeData, setRecipeData] = useState<RecipeData>();
 
-  const handleSubmit = (data: FormData) => {
-    addRecipeByUrl(data.get("recipeUrl") as Url).then((recipeData) => {
-      setHasRecipe(true);
-      setRecipeData(recipeData);
-    });
-  };
-
   const addRecipeJSX = (
     <>
       <h1>Here you will be able to add a recipe</h1>
-      <form action={handleSubmit}>
+      <form action={addRecipeByUrl}>
         <input type="text" name="recipeUrl" id="recipeUrl" />
         <input type="submit" value="submit" />
       </form>

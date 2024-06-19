@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap");
+
+h3.header {
+  font-size: 3vh;
+  margin: 0;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 0 auto 0 auto;
+  width: 50vw;
+  padding: 4vh;
+  background-color: rgb(6, 0, 38);
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
+  color: rgb(239, 255, 234);
+}
+
+/* Header and image stuff */
+.recipe__header_and_image {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+
+  align-items: center;
+
+  flex-grow: 2;
+}
+
+.recipe__info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+}
+
+.recipe__info__title {
+  font-size: 5vh;
+  font-weight: bolder;
+}
+
+.recipe__info__title a {
+  color: white;
+  text-decoration: none;
+}
+
+.recipe__image {
+  max-width: 35%;
+  object-fit: fill;
+
+  border-radius: 2%;
+}
+/* End header and image stuff */
+
+.recipe__description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.recipe__info__details {
+  list-style: none;
+  margin: 5px;
+  padding: 0;
+  height: 100%;
+}
+
+/* Before attributes */
+/* .before_clock::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: "⏲ ";
+}
+
+.before_utensils::before {
+  font-size: 150%;
+  vertical-align: middle;
+  content: "🍴 ";
+}
+
+.before_person::before {
+  font-size: 150%;
+  vertical-align: middle;
+  content: "👤 ";
+} */
+
+.detail {
+  font-size: 11 0%;
+  margin-top: 5px;
+  display: inline-block;
+  width: 50%;
+}
+
+.detail__title {
+  font-weight: bold;
+}
+
+.detail__content {
+}
+
+/* For Ingredients */
+.ingredients_container {
+  margin-bottom: 20px;
+}
+
+.ingredients_groups {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ingredient_group {
+  display: block;
+  width: 45%;
+}
+
+.ingredient_group__header {
+  /* text-align: center; */
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.ingredient_group__ingredients_list {
+  /* margin-left: px; */
+  padding: 0;
+  list-style: none;
+}
+
+.ingredient {
+  margin-bottom: 8px;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.ingredient__amt {
+}
+
+.ingredient__unit {
+}
+
+.ingredient__of {
+}
+
+.ingredient__name {
+}
+
+.ingredient__link {
+  color: rgb(144, 185, 255);
+  text-decoration: none;
+}
+
+.ingredient__link:hover {
+  text-decoration: underline;
+}
+
+.ingredient__link:visited {
+  color: rgb(144, 185, 255);
+}
+
+/* Instruction Styling */
+.instructions_container {
+  .instructions_groups {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .instruction_group {
+    .instruction_group__title {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .instruction_group__instructions {
+      /* list-style: none; */
+      margin: none;
+      margin-left: 50px;
+      padding: 0;
+
+      .instruction_item {
+        font-size: 20px;
+        font-weight: 300;
+
+        .instruction_item__img {
+          max-height: 500px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .instruction_item__text {
+        }
+      }
+    }
+  }
+}
+
+/* Phone specific styling */
+
+@media (max-device-width: 480px) {
+  .recipe {
+    width: 500px;
+  }
+
+  .ingredients_groups {
+    flex-direction: column;
+  }
+
+  .ingredient_group {
+    width: 100%;
+  }
+
+  .ingredient_group__header {
+    text-align: left;
+  }
+}

@@ -12,6 +12,7 @@ import Description from "./Description";
 import IngredientGroup from "./Ingredients";
 import InstructionGroup from "./Instructions";
 import Nutrition from "./Nutrition";
+import ActionButtons from "./ActionButtons";
 
 type Props = {
     recipeData: RecipeData;
@@ -72,6 +73,7 @@ const Recipe = ({ recipeData }: Props) => {
             )}
 
             {nutritionData && <Nutrition nutritionData={nutritionData} />}
+            <ActionButtons id={recipeData._id} />
         </div>
     );
 };

@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap");
+
+:root {
+    --french-gray: #d0ccd0ff;
+    --white: #fbfcffff;
+    --wenge: #605856ff;
+    --cerulean: #1c6e8cff;
+    --charcoal: #274156ff;
+}
+
+.navbar {
+    background-color: var(--charcoal);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Roboto", sans-serif;
+
+    .navbar__list {
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .navbar__list__item {
+            .navbar__list__item__button {
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                padding: 0 15px 0 15px;
+                font-weight: 500;
+
+                .navbar__nav_buton__img {
+                    object-fit: scale-down;
+                    height: 90%;
+                }
+            }
+        }
+
+        .navbar__list__item {
+            height: 100%;
+            background-color: transparent;
+        }
+
+        .navbar__list__search {
+            .navbar__list__search__button {
+                border-color: transparent;
+                border: 0;
+                border-radius: 0;
+                background-color: transparent;
+                height: 100%;
+
+                .navbar__list__search__button__img {
+                    background-color: transparent;
+                    object-fit: scale-down;
+                    height: 50%;
+                }
+            }
+        }
+
+        .navbar__list__hamburger {
+            .navbar__list__hamburger__button {
+                border-color: transparent;
+                border: 0;
+                border-radius: 0;
+                background-color: transparent;
+                height: 100%;
+
+                .navbar__list__hamburger__button__img {
+                    background-color: transparent;
+                    object-fit: scale-down;
+                    height: 50%;
+                }
+            }
+        }
+    }
+
+    .navbar__list--left {
+        order: 1;
+    }
+
+    .navbar__list--center {
+        order: 2;
+        align-self: flex-end;
+    }
+
+    .navbar__list--right {
+        order: 3;
+    }
+}
+
+.navbar--laptop {
+    height: 64px;
+
+    .navbar__list {
+        .navbar__list__item {
+            .navbar__list__item__button:hover {
+                background-color: var(--cerulean);
+            }
+        }
+    }
+}
+
+.navbar--mobile {
+    height: 54px;
+
+    .modal {
+        position: fixed;
+        inset: 0;
+
+        background-color: var(--charcoal);
+        display: flex;
+        flex-direction: column;
+
+        .modal__top {
+            height: 54px;
+            display: flex;
+            justify-content: end;
+
+            order: 1;
+
+            .modal__top__close_button {
+                border: 0;
+                border-radius: 0;
+                background-color: transparent;
+                height: 100%;
+
+                .modal__top__close_button__img {
+                    background-color: transparent;
+                    object-fit: scale-down;
+                    height: 50%;
+                }
+            }
+        }
+        .modal__bottom {
+            margin-top: 15vh;
+            order: 2;
+
+            text-align: center;
+
+            .modal__bottom__list {
+                height: 100%;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 10vh;
+
+                .modal__bottom__list__item {
+                    .modal__bottom__list__item__link {
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* for all links */
+.navbar a {
+    text-decoration: none;
+    color: white;
+}

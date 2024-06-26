@@ -104,7 +104,8 @@ exports.postRecipe = (req, res, next) => {
 
     switch (method) {
         case "url":
-            const url = req.body["url"];
+            console.log(`Adding recipe by url`);
+            const url = req.body["url"].trim();
             if (!url) {
                 res.status(400).json({
                     Error: "Please make sure a 'url' key value pair is provided {'url': '<url goes here>}",

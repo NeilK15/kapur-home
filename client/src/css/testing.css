@@ -1,0 +1,15 @@
+.bb_red {
+    border-width: 3px;
+    border-color: red;
+    border-style: solid;
+}
+.bb_blue {
+    border-width: 3px;
+    border-color: blue;
+    border-style: solid;
+}
+.bb_green {
+    border-width: 3px;
+    border-color: green;
+    border-style: solid;
+}

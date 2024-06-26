@@ -1,0 +1,124 @@
+@media only screen and (max-device-width: 769px) {
+    .recipe_tiles {
+        margin: 0;
+        gap: 0;
+        width: 100vw;
+
+        .recipe_tile {
+            width: 48vw;
+            height: 30vh;
+
+            margin: 0.5vw;
+        }
+    }
+}
+
+.recipe_tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.1vh;
+}
+
+.recipe_tile {
+    width: 25vw;
+    height: 45vh;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: multiply;
+
+    margin: 5px;
+    border-radius: 3%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+.recipe_tile:hover {
+    animation: darken;
+    animation-duration: 300ms;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.recipe_tile__title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.recipe_tiles a {
+    text-decoration: none;
+    color: white;
+}
+
+.recipe_tile--details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    animation: reveal;
+    animation-duration: 300ms;
+}
+
+.details__times {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-size: 12px;
+    justify-content: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid white;
+}
+
+.recipe_tile--details > div {
+    margin-left: 3%;
+    margin-right: 3%;
+    text-align: center;
+}
+
+.details__prep_time {
+    width: 27%;
+    order: 0;
+}
+.details__cook_time {
+    width: 27%;
+    order: 1;
+}
+.details__total_time {
+    width: 27%;
+    order: 2;
+}
+.details__description {
+    font-size: 18px;
+    order: 4;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.time_value {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+@keyframes darken {
+    from {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: rgba(255, 255, 255, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+    }
+}
+
+@keyframes reveal {
+    from {
+        color: rgba(255, 255, 255, 0);
+    }
+    to {
+        color: white;
+    }
+}

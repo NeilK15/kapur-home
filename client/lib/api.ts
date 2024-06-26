@@ -1,21 +1,8 @@
-import { RecipeData } from "@/app/recipes/[id]/@customTypes/RecipeTypes";
-
-export async function getRecipeById(id: number): Promise<RecipeData> {
-    const res = await fetch(`http://${process.env.API_URI}/recipes/${id}`, { cache: "no-cache" });
-
-    if (!res.ok) {
-        throw new Error(`failed to fetch recipe data with id: ${id}`);
-    }
-
-    const rawData = await res.json();
-
-    return new Promise((resolve) => {
-        resolve(rawData as RecipeData);
-    });
-}
+import { RecipeData } from "../@customTypes/RecipeTypes";
+import { Url } from "url";
 
 export async function getRecipes(filter: any, limit: number): Promise<RecipeData[]> {
-    const res = await fetch(`http://${process.env.API_URI}/recipes?filter=${filter}&limit=${limit}`, {
+    const res = await fetch(`http://${process.env.REACT_APP_API_URI}/recipes?filter=${filter}&limit=${limit}`, {
         cache: "no-cache",
     });
 
@@ -28,4 +15,50 @@ export async function getRecipes(filter: any, limit: number): Promise<RecipeData
     return new Promise((resolve) => {
         resolve(rawData as RecipeData[]);
     });
+}
+
+export async function getRecipeById(id: string): Promise<RecipeData> {
+    const res = await fetch(`http://${process.env.REACT_APP_API_URI}/recipes/${id}`, { cache: "no-cache" });
+
+    if (!res.ok) {
+        throw new Error(`failed to fetch recipe data with id: ${id}`);
+    }
+
+    const rawData = await res.json();
+
+    return new Promise((resolve) => {
+        resolve(rawData as RecipeData);
+    });
+}
+
+export async function deleteRecipeById(id: string) {
+    const res = await fetch(`http://${process.env.REACT_APP_API_URI}/recipes/${id}`, {
+        method: "DELETE",
+    });
+
+    if (!res.ok) {
+        throw new Error(`failed to delete recipe with id: ${id}`);
+    }
+
+    return;
+}
+
+export async function addRecipeByUrl(url: string): Promise<string> {
+    if (!url) throw new Error(`Failed to add recipe by URL, url ${url} invalid`);
+    console.log(url);
+
+    const res = await fetch(`http://${process.env.REACT_APP_API_URI}/recipes`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url, method: "url" }),
+        cache: "no-store",
+    });
+
+    const recipeId = await res.json();
+
+    console.log(recipeId);
+
+    return recipeId;
 }

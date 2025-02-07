@@ -12,6 +12,7 @@ exports.recipeSchema = new mongoose.Schema(
         totalTiemUnit: { type: String, default: null },
         courses: [{ type: String, default: null }], //
         cuisine: { type: String, default: null },
+        equipment: [{ name: { type: String, default: null }, icon: { type: String, default: null } }],
         keywords: [{ type: String, default: null }],
         servings: { type: Number, default: null },
         author: { type: String, default: null },

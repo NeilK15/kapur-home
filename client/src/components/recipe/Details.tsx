@@ -13,21 +13,25 @@ type DetailsProps = {
     author: RecipeData["author"];
 };
 
+function decideDetail(time: number) {
+    const hrs = Math.floor(time / 60);
+    const mins = time % 60;
+
+    if (hrs > 0) {
+        if (hrs > 1) {
+            return `${hrs} hours ${mins} minutes`;
+        }
+        return `${hrs} hour ${mins} minutes`;
+    }
+    return `${mins} minutes`;
+}
+
 const Details = (recipeDetails: DetailsProps) => {
     return (
         <ul className="recipe__info__details">
-            <Detail
-                before="clock"
-                title="Prep Time"
-            >{`${recipeDetails.prepTime} ${recipeDetails.prepTimeUnit}`}</Detail>
-            <Detail
-                before="clock"
-                title="Cook Time"
-            >{`${recipeDetails.cookTime} ${recipeDetails.cookTimeUnit}`}</Detail>
-            <Detail
-                before="clock"
-                title="Total Time"
-            >{`${recipeDetails.totalTime} ${recipeDetails.totalTimeUnit}`}</Detail>
+            <Detail before="clock" title="Prep Time">{`${decideDetail(recipeDetails.prepTime)}`}</Detail>
+            <Detail before="clock" title="Cook Time">{`${decideDetail(recipeDetails.cookTime)}`}</Detail>
+            <Detail before="clock" title="Total Time">{`${decideDetail(recipeDetails.totalTime)}`}</Detail>
             <Detail before="utensils" title="Servings">{`${recipeDetails.servings} servings`}</Detail>
             <Detail before="person" title="Author">{`${recipeDetails.author}`}</Detail>
         </ul>

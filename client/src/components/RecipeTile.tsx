@@ -35,25 +35,38 @@ function RecipeTile({ id, title, imageUrl, details }: RecipeTileProps) {
         setShowsDetails(false);
     };
 
+    const decideDetail = (time: number) => {
+        const hrs = Math.floor(time / 60);
+        const mins = time % 60;
+
+        if (hrs > 0) {
+            if (hrs > 1) {
+                return `${hrs} hrs ${mins} mins`;
+            }
+            return `${hrs} hr ${mins} mins`;
+        }
+        return `${mins} mins`;
+    };
+
     const renderedDetails = (
         <>
             <div className="details__times">
-                <div className="details__prep_time">
+                <div className="details__time details__time--prep_time">
                     Prep Time{" "}
                     <span className="time_value">
-                        <span>{details.prepTime}</span> <span>{details.prepTimeUnit}</span>
+                        <span>{decideDetail(details.prepTime)}</span>
                     </span>
                 </div>
-                <div className="details__cook_time">
+                <div className="details__time details__time--cook_time">
                     Cook Time{" "}
                     <span className="time_value">
-                        <span>{details.cookTime}</span> <span>{details.cookTimeUnit}</span>
+                        <span>{decideDetail(details.cookTime)}</span>
                     </span>
                 </div>
-                <div className="details__total_time">
+                <div className="details__time details__time--total_time">
                     Total Time{" "}
                     <span className="time_value">
-                        <span>{details.totalTime}</span> <span>{details.totalTimeUnit}</span>
+                        <span>{decideDetail(details.totalTime)}</span>
                     </span>
                 </div>
             </div>

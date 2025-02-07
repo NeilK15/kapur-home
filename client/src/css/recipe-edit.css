@@ -7,6 +7,15 @@ h3.header {
     margin-top: 20px;
 }
 
+input,
+textarea {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+}
+
 .recipe {
     display: flex;
     flex-direction: column;
@@ -17,28 +26,35 @@ h3.header {
     background-color: rgb(6, 0, 38);
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
     color: rgb(239, 255, 234);
-}
 
-/* Header and image stuff */
-.recipe__header_and_image {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 30px;
+    /* Header and image stuff */
+    & .recipe__header_and_image {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
 
-    align-items: center;
+        align-items: center;
 
-    flex-grow: 2;
-}
+        flex-grow: 2;
 
-.recipe__info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 2;
-}
+        & .recipe__info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 2;
 
-.recipe__info__title {
-    font-size: 5vh;
-    font-weight: bolder;
+            & .recipe__info__title {
+                & .recipe__info__title__input {
+                    font-size: 5vh;
+                    font-weight: 600;
+
+                    color: white;
+                    background-color: transparent;
+                    border: 0;
+                    border-radius: 0;
+                }
+            }
+        }
+    }
 }
 
 .recipe__info__title a {
@@ -233,7 +249,6 @@ h3.header {
 
         .action_buttons_list__item__button:hover {
             background-color: var(--cerulean);
-            cursor: pointer;
         }
     }
 }

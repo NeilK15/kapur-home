@@ -13,6 +13,11 @@
     }
 }
 
+:root {
+    --dark-filter: rgba(0, 0, 0, 0.6);
+    --darker-filter: rgba(0, 0, 0, 0.8);
+}
+
 .recipe_tiles {
     display: flex;
     flex-wrap: wrap;
@@ -23,8 +28,9 @@
 .recipe_tile {
     width: 25vw;
     height: 45vh;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
 
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--dark-filter);
     background-blend-mode: multiply;
 
     margin: 5px;
@@ -40,12 +46,16 @@
 .recipe_tile:hover {
     animation: darken;
     animation-duration: 300ms;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--darker-filter);
 }
 
 .recipe_tile__title {
     text-align: center;
     font-size: 30px;
+    width: 90%;
+    padding: 5px;
+    /* background-color: rgba(0, 0, 0, 0.531); */
+    /* border-radius: 5px; */
 }
 
 .recipe_tiles a {
@@ -70,6 +80,30 @@
     justify-content: center;
     padding-bottom: 20px;
     border-bottom: 2px solid white;
+
+    .details__time {
+        font-size: 16px;
+        font-weight: 300;
+
+        .time_value {
+            display: inline-block;
+            font-size: 22px;
+            font-weight: 700;
+        }
+    }
+
+    .details__time--prep_time {
+        width: 27%;
+        order: 0;
+    }
+    .details__time--cook_time {
+        width: 27%;
+        order: 1;
+    }
+    .details__time--total_time {
+        width: 27%;
+        order: 2;
+    }
 }
 
 .recipe_tile--details > div {
@@ -78,18 +112,6 @@
     text-align: center;
 }
 
-.details__prep_time {
-    width: 27%;
-    order: 0;
-}
-.details__cook_time {
-    width: 27%;
-    order: 1;
-}
-.details__total_time {
-    width: 27%;
-    order: 2;
-}
 .details__description {
     font-size: 18px;
     order: 4;
@@ -97,19 +119,13 @@
     padding-right: 10%;
 }
 
-.time_value {
-    display: inline-block;
-    font-size: 22px;
-    font-weight: 700;
-}
-
 @keyframes darken {
     from {
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: var(--dark-filter);
         color: rgba(255, 255, 255, 0);
     }
     to {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: var(--darker-filter);
         color: white;
     }
 }

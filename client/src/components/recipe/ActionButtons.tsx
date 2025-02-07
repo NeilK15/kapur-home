@@ -1,46 +1,66 @@
 import { deleteRecipeById, getRecipeById } from "../../../lib/api";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Header from "./Header";
 
 type Props = {
     id: string;
 };
 
 const ActionButtons = ({ id }: Props) => {
-    const [isDeleted, setIsDeleted] = useState(false);
+    const navigate = useNavigate();
 
-    function handleDelete(e: React.FormEvent) {
-        e.preventDefault();
+    function handleEdit() {
+        console.log(`editing ${id}`);
+        navigate(`/recipes/edit/${id}`);
+        // setAction(1);
+    }
+
+    function handleDuplicate() {
+        console.log(`duplicating ${id}`);
+        alert("Duplicate not implemented yet");
+        // [TODO] implement a duplicate API call
+    }
+
+    function handleDelete() {
         console.log(`deleting ${id}`);
         deleteRecipeById(id)
             .then(() => {
-                setIsDeleted(true);
+                navigate("/recipes");
             })
             .catch((err) => {
                 console.log(`Error: ${err}`);
             });
     }
 
-    function handleDuplicate(e: React.FormEvent) {
-        console.log(`duplicating ${id}`);
-        // [TODO] implement a duplicate API call
-    }
-
-    const deleteJSX = (
+    const buttons = (
         <>
-            <h1>Here you can</h1>
-            <form onSubmit={(e) => handleDelete(e)}>
-                <input type="submit" value="Delete" />
-            </form>
-            <form onSubmit={(e) => handleDuplicate(e)}>
-                <input type="submit" value="Duplicate" />
-            </form>
+            <div>
+                <Header> </Header>
+                <ul className="action_buttons_list">
+                    <li className="action_buttons_list__item">
+                        <button onClick={handleEdit} className="action_buttons_list__item__button">
+                            <img src="/edit.png" className="action_buttons_list__item__button__img"></img>
+                        </button>
+                    </li>
+                    <li className="action_buttons_list__item">
+                        <button onClick={handleDuplicate} className="action_buttons_list__item__button">
+                            <img src="/duplicate.png" className="action_buttons_list__item__button__img"></img>
+                        </button>
+                    </li>
+                    <li className="action_buttons_list__item">
+                        <button onClick={handleDelete} className="action_buttons_list__item__button">
+                            <img src="/trash.png" className="action_buttons_list__item__button__img"></img>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </>
     );
 
-    const nav = <Navigate to={"/"} replace={true} />;
+    // const navEdit = <Route path={`/recipes/edit/${id}`} element={<Navigate to={`/recipes/edit/${id}`} />} />;
 
-    return isDeleted ? nav : deleteJSX;
+    return buttons;
 };
 
 export default ActionButtons;

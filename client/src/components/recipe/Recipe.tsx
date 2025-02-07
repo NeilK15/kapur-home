@@ -73,6 +73,7 @@ const Recipe = ({ recipeData }: Props) => {
             )}
 
             {nutritionData && <Nutrition nutritionData={nutritionData} />}
+
             <ActionButtons id={recipeData._id} />
         </div>
     );

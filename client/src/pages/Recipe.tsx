@@ -1,5 +1,5 @@
 import Recipe from "../components/recipe/Recipe";
-import "../css/testing.css";
+import Loading from "./Loading";
 import { getRecipeById } from "../../lib/api";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -13,11 +13,13 @@ function Page() {
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
+        document.title = "Loading recipe...";
         async function fetch() {
             try {
                 if (id)
                     await getRecipeById(id)
                         .then((data) => {
+                            document.title = data.name;
                             setRecipe(data);
                         })
                         .catch((err) => {
@@ -33,7 +35,7 @@ function Page() {
     }, []);
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <Loading />;
     }
 
     if (isError) {

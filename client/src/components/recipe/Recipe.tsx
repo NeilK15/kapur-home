@@ -1,6 +1,5 @@
 /* Css */
 import "../../css/recipe.css";
-import "../../css/testing.css";
 
 /* Type imports */
 import { RecipeData } from "../../../@customTypes/RecipeTypes";

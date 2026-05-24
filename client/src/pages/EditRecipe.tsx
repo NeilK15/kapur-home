@@ -1,5 +1,4 @@
 import Recipe from "../components/recipe-edit/Recipe";
-import "../css/testing.css";
 import { getRecipeById } from "../../lib/api";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -18,6 +17,7 @@ function EditRecipe() {
                 if (id)
                     await getRecipeById(id)
                         .then((data) => {
+                            document.title = data.name;
                             setRecipe(data);
                         })
                         .catch((err) => {

@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap");
 
+:root {
+    --recipe-background: rgb(6, 0, 38);
+}
+
 h3.header {
     font-size: 3vh;
     margin: 0;
@@ -8,33 +12,80 @@ h3.header {
 }
 
 input,
+button,
+li,
+div,
 textarea {
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
     border: 0;
     border-radius: 0;
 }
 
+.ce {
+    background-color: var(--recipe-background);
+    color: white;
+    border: 1px rgb(77, 64, 156) solid;
+    border-radius: 2px;
+}
+
+.ce:empty::before {
+    content: attr(data-placeholder);
+    color: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+}
+
+.changes_made {
+    background-color: rgb(150, 0, 0);
+    position: sticky;
+    top: 0;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+
+    span {
+        display: block;
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    button {
+        padding: 5px 10px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+}
+
 .recipe {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin: 0 auto 0 auto;
+    margin: 0 auto;
     width: 50vw;
+    max-width: 900px;
     padding: 4vh;
-    background-color: rgb(6, 0, 38);
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
+    background-color: var(--recipe-background);
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: rgb(239, 255, 234);
 
-    /* Header and image stuff */
+    .back_button {
+        font-size: 36px;
+        background-color: transparent;
+        color: white;
+        max-width: 36px;
+    }
+
     & .recipe__header_and_image {
         display: flex;
         flex-direction: row;
         margin-bottom: 30px;
-
         align-items: center;
-
         flex-grow: 2;
 
         & .recipe__info {
@@ -46,33 +97,35 @@ textarea {
                 & .recipe__info__title__input {
                     font-size: 5vh;
                     font-weight: 600;
-
-                    color: white;
-                    background-color: transparent;
-                    border: 0;
-                    border-radius: 0;
+                    padding: 5px;
                 }
+            }
+        }
+
+        .recipe__info__title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .recipe__image_container {
+            height: 100%;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+
+            .recipe__image {
+                width: 100%;
+                object-fit: fill;
+                border-radius: 2%;
             }
         }
     }
 }
 
-.recipe__info__title a {
-    color: white;
-    text-decoration: none;
-}
-
-.recipe__image {
-    max-width: 35%;
-    object-fit: fill;
-
-    border-radius: 2%;
-}
-/* End header and image stuff */
-
-.recipe__description {
+.recipe__description__input {
     font-size: 20px;
     font-weight: 300;
+    padding: 5px;
 }
 
 .recipe__info__details {
@@ -82,28 +135,7 @@ textarea {
     height: 100%;
 }
 
-/* Before attributes */
-/* .before_clock::before {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  content: "⏲ ";
-}
-
-.before_utensils::before {
-  font-size: 150%;
-  vertical-align: middle;
-  content: "🍴 ";
-}
-
-.before_person::before {
-  font-size: 150%;
-  vertical-align: middle;
-  content: "👤 ";
-} */
-
 .detail {
-    font-size: 11 0%;
     margin-top: 5px;
     display: inline-block;
     width: 50%;
@@ -114,9 +146,16 @@ textarea {
 }
 
 .detail__content {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* For Ingredients */
+.servings__input {
+    padding-left: 3px;
+    width: 20%;
+    border-radius: 5%;
+}
+
+/* Ingredients */
 .ingredients_container {
     margin-bottom: 20px;
 }
@@ -129,6 +168,7 @@ textarea {
     list-style: none;
     margin: 0;
     padding: 0;
+    gap: 3vh 0;
 }
 
 .ingredient_group {
@@ -137,15 +177,28 @@ textarea {
 }
 
 .ingredient_group__header {
-    /* text-align: center; */
     font-size: 22px;
     font-weight: 700;
 }
 
+.ingredient_group_top {
+    display: flex;
+}
+
+.group_delete_button {
+    height: 36px;
+    background-color: transparent;
+}
+
+.group_delete_img {
+    height: 75%;
+    background-color: transparent;
+    margin: auto;
+}
+
 .ingredient_group__ingredients_list {
-    /* margin-left: px; */
     padding: 0;
-    list-style: none;
+    resize: none;
 }
 
 .ingredient {
@@ -154,16 +207,27 @@ textarea {
     font-size: 20px;
 }
 
-.ingredient__amt {
+.ingredient__input {
+    display: inline-block;
+    padding: 1px 1%;
+    white-space: pre-wrap;
+    width: 94%;
+    margin: 0;
 }
 
-.ingredient__unit {
+.add_ingredients_group {
+    display: block;
+    width: 45%;
 }
 
-.ingredient__of {
-}
-
-.ingredient__name {
+.add_ingredients_group__button {
+    border: 4px var(--cerulean) double;
+    border-radius: 7px;
+    width: 100%;
+    font-weight: 300;
+    font-size: 20px;
+    background-color: rgb(181, 255, 197);
+    color: black;
 }
 
 .ingredient__link {
@@ -171,64 +235,103 @@ textarea {
     text-decoration: none;
 }
 
-.ingredient__link:hover {
-    text-decoration: underline;
-}
+.ingredient__link:hover { text-decoration: underline; }
+.ingredient__link:visited { color: rgb(144, 185, 255); }
 
-.ingredient__link:visited {
-    color: rgb(144, 185, 255);
-}
-
-/* Instruction Styling */
+/* Instructions */
 .instructions_container {
     .instructions_groups {
         list-style: none;
         margin: 0;
         padding: 0;
-    }
 
-    .instruction_group {
-        .instruction_group__title {
-            font-size: 22px;
-            font-weight: 500;
+        .instruction_group {
+            margin-bottom: 4vh;
+            width: 100%;
+
+            .instruction_group_top {
+                display: flex;
+                margin-bottom: 5px;
+
+                .instruction_group__title {
+                    font-size: 22px;
+                    font-weight: 500;
+                }
+            }
+
+            .instruction_group__instructions {
+                margin-left: 20px;
+                padding: 0;
+
+                .instruction_item {
+                    font-size: 20px;
+                    font-weight: 300;
+                    margin-bottom: 14px;
+
+                    .instruction_item__img {
+                        max-height: 500px;
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+                    .instruction_top {
+                        display: flex;
+
+                        .instruction_item__text {
+                            vertical-align: text-bottom;
+                        }
+                    }
+
+                    .img_upload {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        margin-top: 5px;
+
+                        .img_upload_prefix_text { font-size: 14px; }
+                        .img_upload_input { display: inline-block; text-align: center; }
+                    }
+                }
+            }
         }
 
-        .instruction_group__instructions {
-            /* list-style: none; */
-            margin: none;
-            margin-left: 50px;
-            padding: 0;
+        .add_instruction_group {
+            display: block;
+            width: 100%;
 
-            .instruction_item {
-                font-size: 20px;
+            .add_instruction_group__button {
+                border: 4px var(--cerulean) double;
+                border-radius: 7px;
+                width: 100%;
                 font-weight: 300;
-
-                .instruction_item__img {
-                    max-height: 500px;
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-
-                .instruction_item__text {
-                }
+                font-size: 20px;
+                background-color: rgb(181, 255, 197);
+                color: black;
             }
         }
     }
 }
 
+.instruction__input {
+    display: inline-block;
+    padding: 1px 1%;
+    white-space: pre-wrap;
+    width: 100%;
+    margin: 0;
+}
+
+/* Action buttons */
 .action_buttons_list {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2vw;
-
     list-style: none;
-    margin: 0;
+    margin: 20px 0 0 0;
     padding: 0;
     height: 54px;
-
-    margin-top: 20px;
 
     .action_buttons_list__item {
         height: 100%;
@@ -253,17 +356,25 @@ textarea {
     }
 }
 
-@media only screen and (max-device-width: 769px) {
+/* ===== Tablet (769px – 1024px) ===== */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
     .recipe {
-        margin: 0;
+        width: 85vw;
+    }
+}
+
+/* ===== Mobile (≤768px) ===== */
+@media only screen and (max-width: 768px) {
+    .recipe {
+        margin: 0 auto;
         padding: 5vw;
         width: 90%;
 
         .recipe__header_and_image {
             flex-direction: column;
 
-            .recipe__image {
-                max-width: 90%;
+            .recipe__image_container {
+                width: 100%;
                 margin-top: 3vh;
             }
         }
@@ -273,7 +384,8 @@ textarea {
         flex-direction: column;
     }
 
-    .ingredient_group {
+    .ingredient_group,
+    .add_ingredients_group {
         width: 100%;
     }
 

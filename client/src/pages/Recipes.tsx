@@ -1,6 +1,7 @@
 import { RecipeData } from "../../@customTypes/RecipeTypes";
 import RecipeTile from "../components/RecipeTile";
 import { getRecipes } from "../../lib/api";
+import Loading from "./Loading";
 import "../css/recipes-view.css";
 import { useEffect, useState } from "react";
 
@@ -10,6 +11,7 @@ function Recipes() {
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
+        document.title = "Kapur Cookbook";
         async function fetch() {
             try {
                 await getRecipes(null, 10)
@@ -29,7 +31,7 @@ function Recipes() {
     }, []);
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <Loading />;
     }
 
     if (isError) {

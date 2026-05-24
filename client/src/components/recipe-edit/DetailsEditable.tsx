@@ -39,25 +39,15 @@ const Details = ({ recipeDetails, onChange }: DetailsProps) => {
                 name={"Total Time"}
                 initial={recipeDetails.totalTime}
             />
-            {/* <Detail
-                before="clock"
-                title="Prep Time"
-            >{`${recipeDetails.prepTime} ${recipeDetails.prepTimeUnit}`}</Detail>
-            <Detail
-                before="clock"
-                title="Cook Time"
-            >{`${recipeDetails.cookTime} ${recipeDetails.cookTimeUnit}`}</Detail>
-            <Detail
-                before="clock"
-                title="Total Time"
-            >{`${recipeDetails.totalTime} ${recipeDetails.totalTimeUnit}`}</Detail> */}
-            <Detail before="utensils" title="Servings">{`${recipeDetails.servings} servings`}</Detail>
-            <input
-                type="number"
-                accept="[1-9]"
-                defaultValue={recipeDetails.servings}
-                onChange={(event) => onChange("servings", parseInt(event.target.value))}
-            />
+            <Detail before="utensils" title="Servings">
+                <input
+                    type="number"
+                    accept="[1-9]"
+                    defaultValue={recipeDetails.servings}
+                    onChange={(event) => onChange("servings", parseInt(event.target.value))}
+                    className="servings__input"
+                />
+            </Detail>
             <Detail before="person" title="Author">{`${recipeDetails.author}`}</Detail>
         </ul>
     );

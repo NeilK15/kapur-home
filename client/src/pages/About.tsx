@@ -1,5 +1,3 @@
-import React from "react";
-
 const About = () => {
     return (
         <>
@@ -9,7 +7,7 @@ const About = () => {
             <div></div>
             <div></div>
             <div></div>
-            <div></div>I created this site :)
+            <div></div>I created this site
         </>
     );
 };

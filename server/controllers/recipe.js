@@ -5,28 +5,19 @@ const scraper = require("recipe-scrapper");
 const recipeSchema = require("../models/recipe").recipeSchema;
 const { default: mongoose } = require("mongoose");
 
-// Temp data
-const sampleData = require("../data/sample_recipe_data.json");
-
 exports.getRecipes = (req, res, next) => {
-    const filter = req.query.filter;
-    const limit = req.query.limit;
+    const { limit, cookbookId } = req.query;
+    const query = cookbookId ? { cookbookId } : {};
 
     const RecipeModel = mongoose.model("Recipe", recipeSchema);
 
-    // Add filter implementation later
-    RecipeModel.find()
+    RecipeModel.find(query)
         .limit(limit)
-        .then((recipeDocuments) => {
-            return recipeDocuments.map((recipeDocument) => {
-                return recipeDocument.toJSON();
-            });
-        })
-        .then((structuredRecipeData) => {
-            res.json(structuredRecipeData).status(200);
-        })
+        .then((recipeDocuments) => recipeDocuments.map((d) => d.toJSON()))
+        .then((recipes) => res.status(200).json(recipes))
         .catch((err) => {
-            console.log("An error occured in GET /recipes");
+            console.error("An error occured in GET /recipes", err.message);
+            res.status(500).json({ error: "Failed to fetch recipes" });
         });
 };
 
@@ -135,9 +126,9 @@ exports.postRecipe = (req, res, next) => {
                             const RecipeModel = mongoose.model("Recipe", recipeSchema);
 
                             const recipeData = { ...recipeJson };
-                            if (recipeData["id"]) {
-                                delete recipeData["id"];
-                            }
+                            if (recipeData["id"]) delete recipeData["id"];
+                            if (req.body["cookbookId"]) recipeData["cookbookId"] = req.body["cookbookId"];
+                            recipeData["createdBy"] = req.userId;
 
                             const recipe = new RecipeModel(recipeData);
                             recipe
@@ -156,15 +147,17 @@ exports.postRecipe = (req, res, next) => {
 
             break;
         case "manual":
-            // Manually set recipe store it
             const recipeJson = req.body["recipe"];
 
-            if (!recipeJson)
-                res.status(400).json({
-                    Error: "Please make sure a 'recipe' key value pair is provided {'recipe': 'recipe goes here'}",
-                });
+            if (!recipeJson) {
+                res.status(400).json({ Error: "Please make sure a 'recipe' key value pair is provided" });
+                return;
+            }
 
-            RecipeModel.findByIdAndUpdate(id, recipeJson);
+            new RecipeModel(recipeJson)
+                .save()
+                .then((recipe) => res.status(200).json(recipe._id))
+                .catch(() => res.status(500).json({ Error: "There was an error storing your recipe" }));
             break;
         default:
             // One of the pre-determined methods was not used, send an error
@@ -223,9 +216,16 @@ exports.putRecipe = (req, res, next) => {
             });
             break;
         case "manual":
-            // Manually set recipe store it
             const recipeJson = req.body["recipe"];
-            RecipeModel.findByIdAndUpdate(id, recipeJson);
+
+            if (!recipeJson) {
+                res.status(400).json({ Error: "Please make sure a 'recipe' key value pair is provided" });
+                return;
+            }
+
+            RecipeModel.findByIdAndUpdate(id, recipeJson)
+                .then(() => res.status(200).json(id))
+                .catch(() => res.status(500).json({ Error: `There was an error updating recipe ${id}` }));
             break;
         default:
             // One of the pre-determined methods was not used, send an error

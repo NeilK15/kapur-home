@@ -1,8 +1,6 @@
-"use client";
-
 import { Link } from "react-router-dom";
 import "../css/recipes-view.css";
-import { MouseEventHandler, useState } from "react";
+import { useState, useEffect } from "react";
 
 type RecipeTileProps = {
     id: string;
@@ -22,9 +20,29 @@ type RecipeTileProps = {
 function RecipeTile({ id, title, imageUrl, details }: RecipeTileProps) {
     const [showsDetails, setShowsDetails] = useState(false);
     const detailsClassName = "recipe_tile--details";
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
+    const handleResize = () => setIsMobile(window.innerWidth <= 769);
+    const [isValidImg, setIsValidImg] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (!imageUrl) { setIsValidImg(false); return; }
+        const img = new Image();
+        img.onload = () => setIsValidImg(true);
+        img.onerror = () => setIsValidImg(false);
+        img.src = imageUrl;
+    }, [imageUrl]);
 
     const imgStyle: React.CSSProperties = {
         backgroundImage: `url('${imageUrl}')`,
+    };
+
+    const backupImgStyle: React.CSSProperties = {
+        backgroundColor: "#0d144f5b",
     };
 
     const handleMouseEnter = () => {
@@ -48,7 +66,7 @@ function RecipeTile({ id, title, imageUrl, details }: RecipeTileProps) {
         return `${mins} mins`;
     };
 
-    const renderedDetails = (
+    const renderedComputerDetails = (
         <>
             <div className="details__times">
                 <div className="details__time details__time--prep_time">
@@ -81,16 +99,25 @@ function RecipeTile({ id, title, imageUrl, details }: RecipeTileProps) {
         </>
     );
 
-    return (
+    const renderedMobileDetails = (
+        <Link to={`/recipes/${id}`} className="recipe_tile--mobile">
+            {isValidImg && <img src={imageUrl} alt={title} className="img--mobile" />}
+            <span className="recipe_tile--mobile__title">{title}</span>
+        </Link>
+    );
+
+    return isMobile ? (
+        renderedMobileDetails
+    ) : (
         <Link
             to={`/recipes/${id}`}
-            style={imgStyle}
+            style={isValidImg ? imgStyle : backupImgStyle}
             className={`recipe_tile ${showsDetails ? detailsClassName : ""}`} // Will show the details class name if showDetails state is true (on hover)
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseExit}
         >
             {!showsDetails && <h3 className="recipe_tile__title">{title}</h3>}
-            {showsDetails && renderedDetails}
+            {showsDetails && renderedComputerDetails}
         </Link>
     );
 }

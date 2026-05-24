@@ -68,6 +68,8 @@ exports.recipeSchema = new mongoose.Schema(
         metadata: {
             dateAdded: { type: Date, default: Date.now },
         },
+        cookbookId: { type: mongoose.Schema.Types.ObjectId, ref: "Cookbook", default: null },
+        createdBy: { type: String, default: null },
     },
     { collection: process.env.DB_RECIPE_COLLECTION }
 );

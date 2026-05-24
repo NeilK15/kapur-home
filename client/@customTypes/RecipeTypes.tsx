@@ -39,4 +39,6 @@ export type RecipeData = {
         note: string;
     }>;
     nutrition: Array<{ title: string; value: number; unit: string }>;
+    cookbookId?: string;
+    createdBy?: string;
 };

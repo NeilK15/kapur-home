@@ -21,3 +21,7 @@ body {
     flex-direction: column;
     margin: 0;
 }
+
+button {
+    cursor: pointer;
+}

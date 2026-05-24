@@ -1,23 +1,9 @@
-@media only screen and (max-device-width: 769px) {
-    .recipe_tiles {
-        margin: 0;
-        gap: 0;
-        width: 100vw;
-
-        .recipe_tile {
-            width: 48vw;
-            height: 30vh;
-
-            margin: 0.5vw;
-        }
-    }
-}
-
 :root {
-    --dark-filter: rgba(0, 0, 0, 0.6);
+    --dark-filter: #0d144f5b;
     --darker-filter: rgba(0, 0, 0, 0.8);
 }
 
+/* ===== Recipe grid (desktop) ===== */
 .recipe_tiles {
     display: flex;
     flex-wrap: wrap;
@@ -28,13 +14,14 @@
 .recipe_tile {
     width: 25vw;
     height: 45vh;
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; /* General font (may be changed based on element) */
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
     background-color: var(--dark-filter);
     background-blend-mode: multiply;
+    transform: translateZ(0);
 
     margin: 5px;
-    border-radius: 3%;
+    border-radius: 10px;
 
     display: flex;
     flex-direction: row;
@@ -44,8 +31,7 @@
 }
 
 .recipe_tile:hover {
-    animation: darken;
-    animation-duration: 300ms;
+    animation: darken 300ms;
     background-color: var(--darker-filter);
 }
 
@@ -54,8 +40,6 @@
     font-size: 30px;
     width: 90%;
     padding: 5px;
-    /* background-color: rgba(0, 0, 0, 0.531); */
-    /* border-radius: 5px; */
 }
 
 .recipe_tiles a {
@@ -67,8 +51,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    animation: reveal;
-    animation-duration: 300ms;
+    animation: reveal 300ms;
 }
 
 .details__times {
@@ -92,18 +75,9 @@
         }
     }
 
-    .details__time--prep_time {
-        width: 27%;
-        order: 0;
-    }
-    .details__time--cook_time {
-        width: 27%;
-        order: 1;
-    }
-    .details__time--total_time {
-        width: 27%;
-        order: 2;
-    }
+    .details__time--prep_time { width: 27%; order: 0; }
+    .details__time--cook_time { width: 27%; order: 1; }
+    .details__time--total_time { width: 27%; order: 2; }
 }
 
 .recipe_tile--details > div {
@@ -119,22 +93,62 @@
     padding-right: 10%;
 }
 
-@keyframes darken {
-    from {
-        background-color: var(--dark-filter);
-        color: rgba(255, 255, 255, 0);
-    }
-    to {
-        background-color: var(--darker-filter);
-        color: white;
+/* ===== Mobile tile (list card) ===== */
+.recipe_tile--mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80px;
+    margin: 6px 10px;
+    border-radius: 10px;
+    background-color: rgba(6, 0, 38, 0.9);
+    overflow: hidden;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.img--mobile {
+    height: 100%;
+    width: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.recipe_tile--mobile__title {
+    padding: 0 16px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.3;
+}
+
+/* ===== Tablet (769px – 1024px): 2-column grid ===== */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .recipe_tile {
+        width: 45vw;
+        height: 35vh;
     }
 }
 
+/* ===== Mobile (≤768px): vertical list ===== */
+@media only screen and (max-width: 768px) {
+    .recipe_tiles {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0;
+        margin: 0;
+    }
+}
+
+/* ===== Animations ===== */
+@keyframes darken {
+    from { background-color: var(--dark-filter); color: rgba(255, 255, 255, 0); }
+    to   { background-color: var(--darker-filter); color: white; }
+}
+
 @keyframes reveal {
-    from {
-        color: rgba(255, 255, 255, 0);
-    }
-    to {
-        color: white;
-    }
+    from { color: rgba(255, 255, 255, 0); }
+    to   { color: white; }
 }

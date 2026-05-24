@@ -1,0 +1,247 @@
+/* ── Cookbooks list page ─────────────────────────────────────────────────── */
+
+.cookbooks_page {
+    padding: 4vh 6vw;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(239, 255, 234);
+    min-height: 100vh;
+    background-color: rgb(6, 0, 38);
+}
+
+.cookbooks_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+
+    h1 {
+        margin: 0;
+        font-size: 2.4rem;
+        font-weight: 700;
+    }
+}
+
+.cookbooks_new_button {
+    background-color: rgb(181, 255, 197);
+    color: black;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cookbooks_new_button:hover {
+    background-color: rgb(150, 230, 165);
+}
+
+/* ── New cookbook form ───────────────────────────────────────────────────── */
+
+.cookbook_new_form {
+    background-color: rgb(15, 8, 55);
+    border: 1px solid rgb(77, 64, 156);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 3vh;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 500px;
+
+    h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    input,
+    textarea {
+        background-color: rgb(6, 0, 38);
+        color: rgb(239, 255, 234);
+        border: 1px solid rgb(77, 64, 156);
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 15px;
+        font-family: "Roboto", sans-serif;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 72px;
+    }
+}
+
+.cookbook_new_form__actions {
+    display: flex;
+    gap: 10px;
+
+    button {
+        padding: 8px 20px;
+        border-radius: 6px;
+        font-size: 15px;
+        cursor: pointer;
+        border: 0;
+    }
+
+    .cookbook_new_form__submit {
+        background-color: rgb(181, 255, 197);
+        color: black;
+        font-weight: 500;
+    }
+
+    .cookbook_new_form__submit:hover {
+        background-color: rgb(150, 230, 165);
+    }
+
+    .cookbook_new_form__cancel {
+        background-color: transparent;
+        color: rgb(239, 255, 234);
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+}
+
+/* ── Cookbook grid ───────────────────────────────────────────────────────── */
+
+.cookbooks_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.cookbook_card {
+    background-color: rgb(15, 8, 55);
+    border: 1px solid rgb(77, 64, 156);
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: rgb(239, 255, 234);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background-color 150ms;
+}
+
+.cookbook_card:hover {
+    background-color: rgb(25, 15, 75);
+}
+
+.cookbook_card__name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cookbook_card__description {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(239, 255, 234, 0.7);
+    margin: 0;
+    flex: 1;
+}
+
+.cookbook_card__count {
+    font-size: 0.85rem;
+    color: rgba(239, 255, 234, 0.5);
+    margin: 0;
+}
+
+.cookbooks_empty {
+    text-align: center;
+    padding: 6vh 0;
+    color: rgba(239, 255, 234, 0.5);
+    font-size: 1.1rem;
+}
+
+/* ── Cookbook detail page ────────────────────────────────────────────────── */
+
+.cookbook_detail {
+    padding: 4vh 6vw;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(239, 255, 234);
+    min-height: 100vh;
+    background-color: rgb(6, 0, 38);
+}
+
+.cookbook_detail__back {
+    background: transparent;
+    border: 0;
+    color: rgb(239, 255, 234);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 2vh;
+    line-height: 1;
+}
+
+.cookbook_detail__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 3vh;
+
+    h1 {
+        margin: 0 0 8px 0;
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 300;
+        color: rgba(239, 255, 234, 0.7);
+    }
+}
+
+.cookbook_detail__add_button {
+    background-color: rgb(181, 255, 197);
+    color: black;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cookbook_detail__add_button:hover {
+    background-color: rgb(150, 230, 165);
+}
+
+.cookbook_detail__empty {
+    text-align: center;
+    padding: 6vh 0;
+    color: rgba(239, 255, 234, 0.5);
+    font-size: 1.1rem;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+
+@media only screen and (max-width: 768px) {
+    .cookbooks_page,
+    .cookbook_detail {
+        padding: 3vh 5vw;
+    }
+
+    .cookbooks_header h1,
+    .cookbook_detail__header h1 {
+        font-size: 1.8rem;
+    }
+
+    .cookbook_detail__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cookbooks_grid {
+        grid-template-columns: 1fr;
+    }
+}

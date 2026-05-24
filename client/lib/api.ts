@@ -14,7 +14,7 @@ export async function getRecipes(filter: any, limit: number, cookbookId?: string
     const params = new URLSearchParams({ filter, limit: String(limit) });
     if (cookbookId) params.set("cookbookId", cookbookId);
 
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/recipes?${params}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/recipes?${params}`, {
         cache: "no-cache",
         headers: await authHeaders(),
     });
@@ -24,7 +24,7 @@ export async function getRecipes(filter: any, limit: number, cookbookId?: string
 }
 
 export async function getRecipeById(id: string): Promise<RecipeData> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/recipes/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/recipes/${id}`, {
         cache: "no-cache",
         headers: await authHeaders(),
     });
@@ -34,7 +34,7 @@ export async function getRecipeById(id: string): Promise<RecipeData> {
 }
 
 export async function deleteRecipeById(id: string) {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/recipes/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/recipes/${id}`, {
         method: "DELETE",
         headers: await authHeaders(),
     });
@@ -43,7 +43,7 @@ export async function deleteRecipeById(id: string) {
 }
 
 export async function updateRecipeById(id: string, recipe: RecipeData): Promise<void> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/recipes/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/recipes/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...(await authHeaders()) },
         body: JSON.stringify({ method: "manual", recipe }),
@@ -54,7 +54,7 @@ export async function updateRecipeById(id: string, recipe: RecipeData): Promise<
 }
 
 export async function createRecipeManually(recipe: Omit<RecipeData, "_id">): Promise<string> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/recipes`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/recipes`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(await authHeaders()) },
         body: JSON.stringify({ method: "manual", recipe }),
@@ -68,7 +68,7 @@ export async function createRecipeManually(recipe: Omit<RecipeData, "_id">): Pro
 export async function addRecipeByUrl(url: string, cookbookId?: string): Promise<string> {
     if (!url) throw new Error(`Failed to add recipe by URL, url ${url} invalid`);
 
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/recipes`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/recipes`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(await authHeaders()) },
         body: JSON.stringify({ url, method: "url", cookbookId }),
@@ -81,7 +81,7 @@ export async function addRecipeByUrl(url: string, cookbookId?: string): Promise<
 // ─── Cookbooks ───────────────────────────────────────────────────────────────
 
 export async function getCookbooks(): Promise<CookbookData[]> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/cookbooks`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/cookbooks`, {
         cache: "no-cache",
         headers: await authHeaders(),
     });
@@ -91,7 +91,7 @@ export async function getCookbooks(): Promise<CookbookData[]> {
 }
 
 export async function getCookbookById(id: string): Promise<CookbookDetailData> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/cookbooks/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/cookbooks/${id}`, {
         cache: "no-cache",
         headers: await authHeaders(),
     });
@@ -101,7 +101,7 @@ export async function getCookbookById(id: string): Promise<CookbookDetailData> {
 }
 
 export async function createCookbook(data: { name: string; description: string }): Promise<CookbookData> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/cookbooks`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/cookbooks`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(await authHeaders()) },
         body: JSON.stringify(data),
@@ -113,7 +113,7 @@ export async function createCookbook(data: { name: string; description: string }
 }
 
 export async function deleteCookbookById(id: string): Promise<void> {
-    const res = await fetch(`http://${import.meta.env.VITE_API_URI}/cookbooks/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URI}/cookbooks/${id}`, {
         method: "DELETE",
         headers: await authHeaders(),
     });

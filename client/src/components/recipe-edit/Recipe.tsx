@@ -14,6 +14,7 @@ import Nutrition from "./Nutrition";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { updateRecipeById, createRecipeManually } from "../../../lib/api";
+import ImageUpload from "../ImageUpload";
 
 type Props = {
     recipeData: RecipeData;
@@ -283,8 +284,12 @@ const Recipe = ({ recipeData }: Props) => {
                         />
                     </div>
                     <div className="recipe__image_container">
-                        <img src={recipe.imageUrl} alt={`Image of ${recipe.name}`} className="recipe__image" />
-                        <input type="file" name="image" id="image_input" />
+                        <ImageUpload
+                            currentUrl={recipe.imageUrl}
+                            alt={`Image of ${recipe.name}`}
+                            className="recipe__image"
+                            onUpload={(url) => updateRecipe("imageUrl", url)}
+                        />
                     </div>
                 </div>
 
@@ -389,13 +394,23 @@ const Recipe = ({ recipeData }: Props) => {
                                                             </button>
                                                         </div>
                                                         <div className="img_upload">
-                                                            <i className="img_upload_prefix_text">
-                                                                {"Optional Image:"}
-                                                            </i>
-                                                            <input
+                                                            <ImageUpload
+                                                                currentUrl={instruction.imageUrl}
+                                                                alt={`Step ${iIndex + 1} image`}
                                                                 className="img_upload_input"
-                                                                type="file"
-                                                                accept="image/*"
+                                                                onUpload={(url) => {
+                                                                    setRecipe((prev) => {
+                                                                        const updated = { ...prev };
+                                                                        const newGroups = [...updated.instructionGroups];
+                                                                        const newGroup = { ...newGroups[iGIndex] };
+                                                                        const newInstructions = [...newGroup.instructions];
+                                                                        newInstructions[iIndex] = { ...newInstructions[iIndex], imageUrl: url };
+                                                                        newGroup.instructions = newInstructions;
+                                                                        newGroups[iGIndex] = newGroup;
+                                                                        updated.instructionGroups = newGroups;
+                                                                        return updated;
+                                                                    });
+                                                                }}
                                                             />
                                                         </div>
                                                     </li>

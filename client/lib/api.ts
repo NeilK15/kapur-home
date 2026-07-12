@@ -2,7 +2,7 @@ import { RecipeData } from "../@customTypes/RecipeTypes";
 import { CookbookData, CookbookDetailData } from "../@customTypes/CookbookTypes";
 import { fetchAuthSession } from "aws-amplify/auth";
 
-async function authHeaders(): Promise<HeadersInit> {
+export async function authHeaders(): Promise<HeadersInit> {
     const session = await fetchAuthSession();
     const token = session.tokens?.accessToken?.toString();
     return token ? { Authorization: `Bearer ${token}` } : {};

@@ -18,9 +18,11 @@ app.use(ROOT, authMiddleware);
 const homeRouter = require("./routes/home");
 const recipeRouter = require("./routes/recipe");
 const cookbookRouter = require("./routes/cookbook");
+const uploadRouter = require("./routes/upload");
 
 app.use(`${ROOT}/recipes`, recipeRouter);
 app.use(`${ROOT}/cookbooks`, cookbookRouter);
+app.use(`${ROOT}/upload`, uploadRouter);
 app.use(ROOT, homeRouter);
 
 app.listen(PORT, () => {

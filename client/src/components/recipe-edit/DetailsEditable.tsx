@@ -2,8 +2,6 @@ import "../../css/recipe.css";
 
 import { RecipeData } from "../../../@customTypes/RecipeTypes";
 
-import { useState } from "react";
-
 type RecipeDetails = {
     prepTime: RecipeData["prepTime"];
     prepTimeUnit: RecipeData["prepTimeUnit"];
@@ -110,7 +108,7 @@ const TimeSelector = (props: TimeSelectorProps) => {
                 options.push(
                     <option selected value={value}>
                         {str}
-                    </option>
+                    </option>,
                 );
             } else {
                 options.push(<option value={value}>{str}</option>);

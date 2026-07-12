@@ -91,7 +91,7 @@ const Recipe = ({ recipeData }: Props) => {
     }
 
     function handleIngredientsChange(index: number, e: React.FocusEvent<HTMLDivElement, Element>) {
-        const rawIngredients = e.target.getHTML().trim().split("\n");
+        const rawIngredients = e.target.innerHTML.trim().split("\n");
 
         const parsedIngredients = rawIngredients.map((rawIngredient) => {
             const parts = rawIngredient.trim().split(" ");

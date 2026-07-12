@@ -2,8 +2,7 @@ import "../../css/recipe.css";
 
 import { RecipeData } from "../../../@customTypes/RecipeTypes";
 
-import { ReactElement, useState } from "react";
-import ContentEditable from "react-contenteditable";
+import { useState } from "react";
 
 type RecipeDetails = {
     prepTime: RecipeData["prepTime"];
@@ -122,9 +121,6 @@ const TimeSelector = (props: TimeSelectorProps) => {
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         props.onChange(parseInt(e.target.value));
     }
-
-    const [time, setTime] = useState(props.initial);
-    const [selecting, setSelecting] = useState(false);
 
     return (
         <Detail before="clock" title={props.name}>

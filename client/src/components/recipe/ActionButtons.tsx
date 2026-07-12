@@ -1,6 +1,5 @@
-import { deleteRecipeById, getRecipeById } from "../../../lib/api";
+import { deleteRecipeById } from "../../../lib/api";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Header from "./Header";
 
 type Props = {

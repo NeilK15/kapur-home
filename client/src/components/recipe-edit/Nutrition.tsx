@@ -7,7 +7,7 @@ type NutritionProps = {
 };
 
 const Nutrition = ({ nutritionData }: NutritionProps) => {
-    const nutritionValues = nutritionData.map((value, index) => {
+    const nutritionValues = nutritionData.map((value) => {
         return <NutritionValue title={value.title} value={value.value} unit={value.unit} hasComma={true} />;
     });
 

@@ -1,33 +1,53 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const multer = require("multer");
+const sharp = require("sharp");
 
 const s3 = new S3Client({ region: process.env.AWS_REGION });
 const BUCKET = process.env.S3_BUCKET_NAME;
-const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"]);
 
-exports.presign = async (req, res) => {
-    const { contentType, filename } = req.body;
+// Accept any image/* mimetype; sharp handles the conversion
+const multerUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB — covers raw HEIC from camera
+    fileFilter: (_req, file, cb) => {
+        if (file.mimetype.startsWith("image/")) {
+            cb(null, true);
+        } else {
+            cb(new Error("Only image files are allowed"));
+        }
+    },
+}).single("image");
 
-    if (!ALLOWED_TYPES.has(contentType)) {
-        return res.status(400).json({ error: "Invalid file type" });
-    }
+exports.multerMiddleware = (req, res, next) => {
+    multerUpload(req, res, (err) => {
+        if (err) return res.status(400).json({ error: err.message });
+        next();
+    });
+};
+
+exports.uploadImage = async (req, res) => {
+    if (!req.file) return res.status(400).json({ error: "No image provided" });
 
     try {
-        const ext = filename?.split(".").pop() ?? "jpg";
-        const key = `recipes/${req.userId}/${Date.now()}.${ext}`;
+        const jpegBuffer = await sharp(req.file.buffer)
+            .rotate()                                                      // honour EXIF orientation
+            .resize(2048, 2048, { fit: "inside", withoutEnlargement: true })
+            .jpeg({ quality: 85 })
+            .toBuffer();
 
-        const command = new PutObjectCommand({
+        const key = `recipes/${req.userId}/${Date.now()}.jpg`;
+
+        await s3.send(new PutObjectCommand({
             Bucket: BUCKET,
             Key: key,
-            ContentType: contentType,
-        });
+            Body: jpegBuffer,
+            ContentType: "image/jpeg",
+        }));
 
-        const uploadUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
         const imageUrl = `https://${BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
-
-        res.json({ uploadUrl, imageUrl });
+        res.json({ imageUrl });
     } catch (err) {
-        console.error("Failed to generate pre-signed URL:", err);
-        res.status(500).json({ error: "Failed to generate upload URL" });
+        console.error("Failed to process/upload image:", err);
+        res.status(500).json({ error: "Failed to process image" });
     }
 };

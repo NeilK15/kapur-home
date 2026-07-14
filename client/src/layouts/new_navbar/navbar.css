@@ -49,21 +49,22 @@
                 align-items: center;
                 font-weight: 500;
 
-                border: 1px solid rgb(73, 73, 73);
-                border-radius: 5px;
+                /* border: 1px solid rgb(87, 87, 87); */
+                border: 1px;
+                /* border-radius: 5px; */
 
                 .navitem__img {
-                    height: 65%;
-                    filter: brightness(0.5);
+                    height: 75%;
+                    filter: brightness(0.85);
                 }
             }
 
             .navitem__button:hover {
-                background-color: var(--navitemhover);
+                /* background-color: var(--navitemhover); */
             }
 
             .navitem__button:active {
-                background-color: var(--navitempressed);
+                /* background-color: var(--navitempressed); */
             }
 
             .navitem__tooltip {
@@ -91,6 +92,12 @@
             .navitem__tooltip {
                 left: 0;
             }
+
+            .navitem__button {
+                .navitem__img {
+                    height: 90%;
+                }
+            }
         }
         .navitem--tooltip_right {
             .navitem__tooltip {
@@ -109,10 +116,10 @@
 }
 
 .navbar--mobile {
-    height: 54px;
+    height: 56px;
 
     .navbar__list .navbar__navitem .navitem__button {
-        height: 65%;
+        height: 75%;
     }
 }
 

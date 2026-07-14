@@ -93,7 +93,7 @@ const Navbar = () => {
         <nav className="navbar navbar--mobile">
             <ul className="navbar__list">
                 <NavButtonReg
-                    imgSrc="/icons/home.png"
+                    imgSrc="/icons/chewie-outline.png"
                     onClick={() => navigate("/")}
                     clsName="navitem--tooltip_left"
                     isMobile={true}

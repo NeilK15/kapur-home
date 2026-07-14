@@ -1,0 +1,230 @@
+/* Overlay */
+.arm__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 200;
+}
+
+/* Modal — bottom sheet on mobile */
+.arm {
+    background: rgb(10, 20, 35);
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 16px 16px 0 0;
+    border-top: 1px solid rgb(67, 67, 67);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Centered dialog on tablet and desktop */
+@media (min-width: 600px) {
+    .arm__overlay {
+        align-items: center;
+    }
+
+    .arm {
+        width: 100%;
+        max-width: 460px;
+        border-radius: 16px;
+        border: 1px solid rgb(67, 67, 67);
+        max-height: 75vh;
+    }
+}
+
+/* Header */
+.arm__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgb(67, 67, 67);
+    flex-shrink: 0;
+}
+
+.arm__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    font-family: "Roboto", sans-serif;
+}
+
+.arm__close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+}
+
+.arm__close:hover {
+    color: white;
+}
+
+/* Body */
+.arm__body {
+    overflow-y: auto;
+    padding: 12px 0 24px;
+    flex: 1;
+}
+
+.arm__loading,
+.arm__empty {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    padding: 16px 20px;
+    margin: 0;
+}
+
+/* Cookbook list */
+.arm__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.arm__cookbook {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgb(35, 45, 60);
+    padding: 16px 20px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 56px;
+}
+
+.arm__cookbook:hover,
+.arm__cookbook:focus {
+    background: rgb(0, 26, 48);
+    outline: none;
+}
+
+.arm__cookbook:active {
+    background: rgb(0, 35, 65);
+}
+
+.arm__cookbook__name {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.arm__cookbook__desc {
+    color: rgba(255, 255, 255, 0.45);
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* New cookbook button */
+.arm__new_button {
+    display: block;
+    width: calc(100% - 40px);
+    margin: 16px 20px 0;
+    padding: 14px;
+    background: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.arm__new_button:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+/* New cookbook inline form */
+.arm__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 20px 0;
+}
+
+.arm__form__input,
+.arm__form__textarea {
+    background: rgb(0, 20, 38);
+    border: 1px solid rgb(67, 67, 67);
+    border-radius: 8px;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.arm__form__input:focus,
+.arm__form__textarea:focus {
+    outline: none;
+    border-color: rgba(181, 255, 197, 0.5);
+}
+
+.arm__form__textarea {
+    resize: none;
+    height: 72px;
+}
+
+.arm__form__actions {
+    display: flex;
+    gap: 10px;
+}
+
+.arm__form__submit {
+    flex: 1;
+    padding: 12px;
+    background: rgb(181, 255, 197);
+    color: rgb(0, 20, 38);
+    border: none;
+    border-radius: 8px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.arm__form__submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.arm__form__submit:hover:not(:disabled) {
+    background: rgb(160, 235, 178);
+}
+
+.arm__form__cancel {
+    padding: 12px 18px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgb(67, 67, 67);
+    border-radius: 8px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.arm__form__cancel:hover {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+}

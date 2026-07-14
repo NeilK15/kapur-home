@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import AddRecipeModal from "../../components/AddRecipeModal";
 import "./navbar.css";
 
 type NavButtonRegProps = {
@@ -38,18 +39,13 @@ const NavButtonReg = ({ onClick, imgSrc, onHoverText, clsName, isMobile }: NavBu
     );
 };
 
-const navLinks = [
-    { content: "Home", href: "/" },
-    { content: "Add Recipe", href: "/recipes/add" },
-    { content: "Cookbooks", href: "/cookbooks" },
-];
-
 const Navbar = () => {
     const navigate = useNavigate();
     const { signOut } = useAuthenticator();
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
-    const [showModal, setShowModal] = useState(false);
+    const [showHamburger, setShowHamburger] = useState(false);
+    const [showAddModal, setShowAddModal] = useState(false);
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 769);
@@ -61,25 +57,25 @@ const Navbar = () => {
         <nav className="navbar navbar--laptop">
             <ul className="navbar__list">
                 <NavButtonReg
-                    imgSrc="/icons/home.png"
+                    imgSrc="/icons/chewie-outline.png"
                     onHoverText="Home"
                     onClick={() => navigate("/")}
                     clsName="navitem--tooltip_left"
                     isMobile={false}
                 />
                 <li className="navbar__navitem"></li>
-                {/* <NavButtonReg
+                <NavButtonReg
                     imgSrc="/icons/add.png"
                     onHoverText="Add Recipe"
-                    onClick={() => navigate("/recipes/add")}
+                    onClick={() => setShowAddModal(true)}
                     clsName="navitem--first_right navitem--tooltip_right"
                     isMobile={false}
-                /> */}
+                />
                 <NavButtonReg
                     imgSrc="/icons/books2.png"
                     onHoverText="Cookbooks"
                     onClick={() => navigate("/cookbooks")}
-                    clsName="navitem--first_right navitem--tooltip_right"
+                    clsName="navitem--tooltip_right"
                     isMobile={false}
                 />
                 <NavButtonReg
@@ -103,27 +99,31 @@ const Navbar = () => {
                     isMobile={true}
                 />
                 <NavButtonReg
-                    imgSrc="/icons/hamburger.png"
-                    onClick={() => setShowModal(true)}
+                    imgSrc="/icons/add.png"
+                    onClick={() => setShowAddModal(true)}
                     clsName="navitem--first_right"
                     isMobile={true}
                 />
+                <NavButtonReg imgSrc="/icons/hamburger.png" onClick={() => setShowHamburger(true)} isMobile={true} />
             </ul>
-            {showModal && (
+            {showHamburger && (
                 <div className="navbar__modal">
                     <div className="navbar__modal__top">
-                        <button className="navbar__modal__close" onClick={() => setShowModal(false)}>
+                        <button className="navbar__modal__close" onClick={() => setShowHamburger(false)}>
                             <img src="/close.png" alt="Close" />
                         </button>
                     </div>
                     <ul className="navbar__modal__links">
-                        {navLinks.map((link, i) => (
-                            <li key={i}>
-                                <Link to={link.href} onClick={() => setShowModal(false)}>
-                                    {link.content}
-                                </Link>
-                            </li>
-                        ))}
+                        <li>
+                            <Link to="/" onClick={() => setShowHamburger(false)}>
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/cookbooks" onClick={() => setShowHamburger(false)}>
+                                Cookbooks
+                            </Link>
+                        </li>
                         <li>
                             <button onClick={signOut} className="navbar__modal__signout">
                                 Sign Out
@@ -135,7 +135,12 @@ const Navbar = () => {
         </nav>
     );
 
-    return isMobile ? mobileView : laptopView;
+    return (
+        <>
+            {isMobile ? mobileView : laptopView}
+            {showAddModal && <AddRecipeModal onClose={() => setShowAddModal(false)} />}
+        </>
+    );
 };
 
 export default Navbar;

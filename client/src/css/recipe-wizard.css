@@ -1,0 +1,678 @@
+/* ── Layout ─────────────────────────────────────────────── */
+.wz {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 64px);
+    background-color: rgb(6, 0, 38);
+    font-family: "Roboto", sans-serif;
+    color: rgb(239, 255, 234);
+}
+
+/* ── Progress bar ───────────────────────────────────────── */
+.wz__progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 20px 24px 16px;
+    background-color: rgb(6, 0, 38);
+    border-bottom: 1px solid rgba(77, 64, 156, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.wz__progress__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    position: relative;
+    cursor: default;
+}
+
+.wz__progress__step--done {
+    cursor: pointer;
+}
+
+.wz__progress__step::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 50%;
+    left: -50%;
+    height: 2px;
+    background-color: rgba(77, 64, 156, 0.4);
+}
+
+.wz__progress__step:first-child::before {
+    display: none;
+}
+
+.wz__progress__step--done::before,
+.wz__progress__step--active::before {
+    background-color: rgb(181, 255, 197);
+}
+
+.wz__progress__dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(77, 64, 156, 0.6);
+    background-color: rgb(6, 0, 38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    position: relative;
+    z-index: 1;
+    transition: all 0.2s;
+}
+
+.wz__progress__step--active .wz__progress__dot {
+    border-color: rgb(181, 255, 197);
+    background-color: rgb(181, 255, 197);
+    color: rgb(6, 0, 38);
+}
+
+.wz__progress__step--done .wz__progress__dot {
+    border-color: rgb(181, 255, 197);
+    background-color: rgb(6, 0, 38);
+    color: rgb(181, 255, 197);
+}
+
+.wz__progress__label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.35);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+.wz__progress__step--active .wz__progress__label {
+    color: rgb(181, 255, 197);
+    font-weight: 700;
+}
+
+.wz__progress__step--done .wz__progress__label {
+    color: rgba(181, 255, 197, 0.7);
+}
+
+/* ── Step content ───────────────────────────────────────── */
+.wz__content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 24px 120px;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.wz__step__title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: white;
+}
+
+.wz__step__subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 0 28px;
+}
+
+/* ── Fields ─────────────────────────────────────────────── */
+.wz__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.wz__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.wz__input,
+.wz__textarea,
+.wz__select {
+    background-color: rgb(14, 6, 52);
+    border: 1px solid rgba(77, 64, 156, 0.7);
+    border-radius: 8px;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+
+.wz__input:focus,
+.wz__textarea:focus,
+.wz__select:focus {
+    outline: none;
+    border-color: rgb(181, 255, 197);
+}
+
+.wz__input::placeholder,
+.wz__textarea::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.wz__textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.wz__select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.wz__select option {
+    background-color: rgb(14, 6, 52);
+}
+
+/* ── Two-col grid ───────────────────────────────────────── */
+.wz__grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.wz__grid3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+/* ── Keywords ───────────────────────────────────────────── */
+.wz__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+    background-color: rgb(14, 6, 52);
+    border: 1px solid rgba(77, 64, 156, 0.7);
+    border-radius: 8px;
+    min-height: 48px;
+    cursor: text;
+}
+
+.wz__tags:focus-within {
+    border-color: rgb(181, 255, 197);
+}
+
+.wz__tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(77, 64, 156, 0.5);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    color: rgb(181, 255, 197);
+}
+
+.wz__tag__remove {
+    background: transparent;
+    border: none;
+    color: rgba(181, 255, 197, 0.6);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.wz__tag__remove:hover {
+    color: rgb(181, 255, 197);
+}
+
+.wz__tags__input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    flex: 1;
+    min-width: 120px;
+    padding: 2px 0;
+}
+
+.wz__tags__input:focus {
+    outline: none;
+}
+
+.wz__tags__hint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 4px;
+}
+
+/* ── Divider ────────────────────────────────────────────── */
+.wz__divider {
+    border: none;
+    border-top: 1px solid rgba(77, 64, 156, 0.3);
+    margin: 24px 0;
+}
+
+/* ── Section heading ────────────────────────────────────── */
+.wz__section_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.wz__section_title {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+/* ── Add group button ───────────────────────────────────── */
+.wz__add_group {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px dashed rgba(77, 64, 156, 0.6);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.15s;
+}
+
+.wz__add_group:hover {
+    border-color: rgba(181, 255, 197, 0.5);
+    color: rgb(181, 255, 197);
+}
+
+/* ── Add item button ────────────────────────────────────── */
+.wz__add_item {
+    background: transparent;
+    border: none;
+    color: rgba(181, 255, 197, 0.7);
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wz__add_item:hover {
+    color: rgb(181, 255, 197);
+}
+
+/* ── Ingredient group card ──────────────────────────────── */
+.wz__group_card {
+    background-color: rgba(77, 64, 156, 0.08);
+    border: 1px solid rgba(77, 64, 156, 0.35);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.wz__group_card__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.wz__group_card__title_input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(77, 64, 156, 0.5);
+    border-radius: 0;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 4px 2px;
+}
+
+.wz__group_card__title_input:focus {
+    outline: none;
+    border-bottom-color: rgb(181, 255, 197);
+}
+
+.wz__group_card__title_input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 400;
+}
+
+.wz__delete_group {
+    background: transparent;
+    border: none;
+    color: rgba(255, 100, 100, 0.5);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.wz__delete_group:hover {
+    color: rgba(255, 100, 100, 0.9);
+}
+
+/* ── Ingredient row ─────────────────────────────────────── */
+.wz__ingredient_row {
+    display: grid;
+    grid-template-columns: 72px 80px 1fr 32px;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.wz__ingredient_row__input {
+    background-color: rgb(14, 6, 52);
+    border: 1px solid rgba(77, 64, 156, 0.5);
+    border-radius: 6px;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    padding: 9px 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.wz__ingredient_row__input:focus {
+    outline: none;
+    border-color: rgb(181, 255, 197);
+}
+
+.wz__ingredient_row__input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.wz__delete_item {
+    background: transparent;
+    border: none;
+    color: rgba(255, 100, 100, 0.4);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wz__delete_item:hover {
+    color: rgba(255, 100, 100, 0.9);
+}
+
+.wz__ingredient_col_labels {
+    display: grid;
+    grid-template-columns: 72px 80px 1fr 32px;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.wz__ingredient_col_label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 0 2px;
+}
+
+/* ── Instruction step ───────────────────────────────────── */
+.wz__instruction_item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.wz__instruction_item__num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: rgba(77, 64, 156, 0.4);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+.wz__instruction_item__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wz__instruction_item__controls {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.wz__footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 24px;
+    background-color: rgb(6, 0, 38);
+    border-top: 1px solid rgba(77, 64, 156, 0.4);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.wz__footer__back {
+    padding: 14px 24px;
+    background: transparent;
+    border: 1px solid rgba(77, 64, 156, 0.6);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 90px;
+}
+
+.wz__footer__back:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+}
+
+.wz__footer__next {
+    flex: 1;
+    padding: 14px;
+    background-color: rgb(181, 255, 197);
+    border: none;
+    border-radius: 10px;
+    color: rgb(6, 0, 38);
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.wz__footer__next:hover {
+    background-color: rgb(160, 235, 178);
+}
+
+.wz__footer__next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ── Review step ────────────────────────────────────────── */
+.wz__review_section {
+    margin-bottom: 24px;
+}
+
+.wz__review_section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(77, 64, 156, 0.3);
+    padding-bottom: 6px;
+}
+
+.wz__review_section__title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.wz__review_section__edit {
+    background: transparent;
+    border: none;
+    color: rgba(181, 255, 197, 0.7);
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.wz__review_section__edit:hover {
+    color: rgb(181, 255, 197);
+}
+
+.wz__review__name {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: white;
+}
+
+.wz__review__description {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.wz__review__image {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.wz__review__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.wz__review__meta__item strong {
+    color: white;
+}
+
+.wz__review__ingredient_group {
+    margin-bottom: 14px;
+}
+
+.wz__review__group_title {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 6px;
+}
+
+.wz__review__ingredient {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 3px 0;
+}
+
+.wz__review__instruction {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 4px 0;
+    counter-increment: instruction;
+}
+
+.wz__review__instruction::before {
+    content: counter(instruction) ". ";
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.wz__review__instructions_list {
+    counter-reset: instruction;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.wz__review__empty {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.3);
+    font-style: italic;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .wz {
+        min-height: calc(100vh - 54px);
+    }
+
+    .wz__progress__label {
+        display: none;
+    }
+
+    .wz__progress__dot {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .wz__content {
+        padding: 20px 16px 110px;
+    }
+
+    .wz__grid2,
+    .wz__grid3 {
+        grid-template-columns: 1fr;
+    }
+
+    .wz__ingredient_row {
+        grid-template-columns: 60px 70px 1fr 32px;
+        gap: 6px;
+    }
+
+    .wz__ingredient_col_labels {
+        grid-template-columns: 60px 70px 1fr 32px;
+        gap: 6px;
+    }
+}

@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Navigate, useSearchParams, Link } from "react-router-dom";
 import { addRecipeByUrl } from "../../lib/api";
-import Recipe from "../components/recipe-edit/Recipe";
 import { RecipeData } from "../../@customTypes/RecipeTypes";
+import RecipeWizard from "../components/recipe-wizard/RecipeWizard";
 import "../css/add-recipes-view.css";
 
 function makeEmptyRecipe(cookbookId?: string): RecipeData {
@@ -42,16 +42,19 @@ const AddRecipe = () => {
     const [hasRecipe, setHasRecipe] = useState(false);
     const [recipeId, setRecipeId] = useState<string>();
     const [url, setUrl] = useState<string>();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleUrlSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (url) {
+            setIsLoading(true);
             addRecipeByUrl(url, cookbookId)
                 .then((id) => {
                     setHasRecipe(true);
                     setRecipeId(id);
                 })
-                .catch((err) => alert(err));
+                .catch((err) => alert(err))
+                .finally(() => setIsLoading(false));
         }
     };
 
@@ -71,7 +74,7 @@ const AddRecipe = () => {
     }
 
     if (view === "manual") {
-        return <Recipe recipeData={makeEmptyRecipe(cookbookId)} />;
+        return <RecipeWizard initialRecipe={makeEmptyRecipe(cookbookId)} mode="create" />;
     }
 
     return (
@@ -97,7 +100,7 @@ const AddRecipe = () => {
                             placeholder="https://..."
                             onChange={(e) => setUrl(e.target.value)}
                         />
-                        <input type="submit" value="Add Recipe" />
+                        <input type="submit" value={isLoading ? "Loading..." : "Add Recipe"} disabled={isLoading} />
                     </form>
                 </div>
             )}

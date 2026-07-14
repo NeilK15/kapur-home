@@ -1,54 +1,31 @@
-import Recipe from "../components/recipe-edit/Recipe";
 import { getRecipeById } from "../../lib/api";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RecipeData } from "../../@customTypes/RecipeTypes";
+import RecipeWizard from "../components/recipe-wizard/RecipeWizard";
+import Loading from "./Loading";
 
 function EditRecipe() {
     const { id } = useParams();
-
     const [recipe, setRecipe] = useState<RecipeData>();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        async function fetch() {
-            try {
-                if (id)
-                    await getRecipeById(id)
-                        .then((data) => {
-                            document.title = data.name;
-                            setRecipe(data);
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-            } catch (error) {
-                setIsError(true);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-        fetch();
-    }, []);
+        if (!id) return;
+        getRecipeById(id)
+            .then((data) => {
+                document.title = data.name;
+                setRecipe(data);
+            })
+            .catch(() => setIsError(true))
+            .finally(() => setIsLoading(false));
+    }, [id]);
 
-    if (isLoading) {
-        return <p>Loading...</p>;
-    }
+    if (isLoading) return <Loading />;
+    if (isError || !recipe) return <p>Error loading recipe.</p>;
 
-    if (isError) {
-        return <p>Error</p>;
-    }
-
-    // const recipeData = await getRecipeById(id);
-
-    // const [recipe] = await Promise.all([recipeData]);
-
-    // console.log(params.id);
-
-    if (recipe) {
-        return <Recipe recipeData={recipe} />;
-    }
+    return <RecipeWizard initialRecipe={recipe} mode="edit" />;
 }
 
 export default EditRecipe;

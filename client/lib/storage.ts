@@ -83,20 +83,30 @@ export async function uploadImage(
         throw new Error(`Compression error: ${err instanceof Error ? err.message : err}`);
     }
 
-    let res: Response;
-    try {
-        const formData = new FormData();
-        formData.append("image", blob, "image.jpg");
-
-        res = await fetch(`${import.meta.env.VITE_API_URI}/upload/image`, {
-            method: "POST",
-            headers: { ...(await authHeaders()) },
-            body: formData,
-        });
-    } catch (err) {
+    // iOS suspends Safari while the camera app is open; the network connection may need
+    // a moment to recover when the user returns. Retry once after a short pause.
+    let res: Response | undefined;
+    let fetchErr: unknown;
+    for (let attempt = 0; attempt < 2; attempt++) {
+        if (attempt > 0) await new Promise((r) => setTimeout(r, 1500));
+        try {
+            const formData = new FormData();
+            formData.append("image", blob, "image.jpg");
+            res = await fetch(`${import.meta.env.VITE_API_URI}/upload/image`, {
+                method: "POST",
+                headers: { ...(await authHeaders()) },
+                body: formData,
+            });
+            fetchErr = undefined;
+            break;
+        } catch (err) {
+            fetchErr = err;
+        }
+    }
+    if (fetchErr || !res) {
         debug.failedAt = "fetch";
         onDebug?.(debug);
-        throw new Error(`Network error sending to server: ${err instanceof Error ? err.message : err}`);
+        throw new Error(`Network error sending to server: ${fetchErr instanceof Error ? fetchErr.message : fetchErr}`);
     }
 
     if (!res.ok) {

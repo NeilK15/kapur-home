@@ -75,9 +75,7 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
                     <br />
                     Original size: {debugInfo.fileSize}
                     <br />
-                    Read into memory: {debugInfo.readIntoMemory ? "yes" : "no"}
-                    <br />
-                    Compressed: {debugInfo.compressed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}
+                    Processed via blueimp: {debugInfo.processed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}
                     <br />
                     {errorMsg ? (
                         <>

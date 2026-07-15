@@ -70,6 +70,7 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
                     <strong>Upload debug</strong><br />
                     Type: {debugInfo.fileType}<br />
                     Original size: {debugInfo.fileSize}<br />
+                    Read into memory: {debugInfo.readIntoMemory ? "yes" : "no"}<br />
                     Compressed: {debugInfo.compressed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}<br />
                     {errorMsg
                         ? <>Failed at: <strong>{debugInfo.failedAt}</strong><br />Error: {errorMsg}</>

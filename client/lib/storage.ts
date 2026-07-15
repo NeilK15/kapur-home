@@ -10,14 +10,27 @@ function mb(bytes: number) {
     return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 }
 
-async function compressForUpload(file: File): Promise<Blob> {
-    if (file.size <= COMPRESS_THRESHOLD_BYTES || !CANVAS_SUPPORTED_TYPES.has(file.type)) {
-        return file;
+// Copy the file's bytes into a plain ArrayBuffer in the JS heap.
+// On iOS, File objects from the camera can have their underlying filesystem
+// reference invalidated after the page is suspended while the camera is open.
+// Reading into an ArrayBuffer keeps the data alive regardless of iOS lifecycle.
+function readIntoMemory(file: File): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as ArrayBuffer);
+        reader.onerror = () => reject(new Error("Could not read file"));
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+async function compressForUpload(blob: Blob, type: string): Promise<Blob> {
+    if (blob.size <= COMPRESS_THRESHOLD_BYTES || !CANVAS_SUPPORTED_TYPES.has(type)) {
+        return blob;
     }
 
     return new Promise((resolve) => {
         const img = new Image();
-        const objectUrl = URL.createObjectURL(file);
+        const objectUrl = URL.createObjectURL(blob);
 
         img.onload = () => {
             URL.revokeObjectURL(objectUrl);
@@ -37,17 +50,17 @@ async function compressForUpload(file: File): Promise<Blob> {
             canvas.width = width;
             canvas.height = height;
             const ctx = canvas.getContext("2d");
-            if (!ctx) { resolve(file); return; }
+            if (!ctx) { resolve(blob); return; }
 
             ctx.drawImage(img, 0, 0, width, height);
             const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
             fetch(dataUrl)
                 .then((r) => r.blob())
                 .then(resolve)
-                .catch(() => resolve(file));
+                .catch(() => resolve(blob));
         };
 
-        img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
+        img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(blob); };
         img.src = objectUrl;
     });
 }
@@ -55,9 +68,10 @@ async function compressForUpload(file: File): Promise<Blob> {
 export type UploadDebugInfo = {
     fileType: string;
     fileSize: string;
+    readIntoMemory: boolean;
     compressed: boolean;
     blobSize: string;
-    failedAt: "compression" | "fetch" | "server" | null;
+    failedAt: "read" | "compression" | "fetch" | "server" | null;
 };
 
 export async function uploadImage(
@@ -67,15 +81,28 @@ export async function uploadImage(
     const debug: UploadDebugInfo = {
         fileType: file.type || "unknown",
         fileSize: mb(file.size),
+        readIntoMemory: false,
         compressed: false,
         blobSize: mb(file.size),
         failedAt: null,
     };
 
+    // Read into memory first, before any other async work
+    let safeBlob: Blob;
+    try {
+        const buffer = await readIntoMemory(file);
+        safeBlob = new Blob([buffer], { type: file.type });
+        debug.readIntoMemory = true;
+    } catch (err) {
+        debug.failedAt = "read";
+        onDebug?.(debug);
+        throw new Error(`Could not read file: ${err instanceof Error ? err.message : err}`);
+    }
+
     let blob: Blob;
     try {
-        blob = await compressForUpload(file);
-        debug.compressed = blob !== file && blob.size < file.size;
+        blob = await compressForUpload(safeBlob, file.type);
+        debug.compressed = blob !== safeBlob && blob.size < safeBlob.size;
         debug.blobSize = mb(blob.size);
     } catch (err) {
         debug.failedAt = "compression";
@@ -83,30 +110,19 @@ export async function uploadImage(
         throw new Error(`Compression error: ${err instanceof Error ? err.message : err}`);
     }
 
-    // iOS suspends Safari while the camera app is open; the network connection may need
-    // a moment to recover when the user returns. Retry once after a short pause.
-    let res: Response | undefined;
-    let fetchErr: unknown;
-    for (let attempt = 0; attempt < 2; attempt++) {
-        if (attempt > 0) await new Promise((r) => setTimeout(r, 1500));
-        try {
-            const formData = new FormData();
-            formData.append("image", blob, "image.jpg");
-            res = await fetch(`${import.meta.env.VITE_API_URI}/upload/image`, {
-                method: "POST",
-                headers: { ...(await authHeaders()) },
-                body: formData,
-            });
-            fetchErr = undefined;
-            break;
-        } catch (err) {
-            fetchErr = err;
-        }
-    }
-    if (fetchErr || !res) {
+    let res: Response;
+    try {
+        const formData = new FormData();
+        formData.append("image", blob, "image.jpg");
+        res = await fetch(`${import.meta.env.VITE_API_URI}/upload/image`, {
+            method: "POST",
+            headers: { ...(await authHeaders()) },
+            body: formData,
+        });
+    } catch (err) {
         debug.failedAt = "fetch";
         onDebug?.(debug);
-        throw new Error(`Network error sending to server: ${fetchErr instanceof Error ? fetchErr.message : fetchErr}`);
+        throw new Error(`Network error sending to server: ${err instanceof Error ? err.message : err}`);
     }
 
     if (!res.ok) {

@@ -22,8 +22,13 @@ async function processImage(file: File): Promise<Blob> {
     });
 
     const canvas = result.image as HTMLCanvasElement;
-    const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
-    return fetch(dataUrl).then((r) => r.blob());
+    return new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob(
+            (blob) => (blob ? resolve(blob) : reject(new Error("Canvas produced no output"))),
+            "image/jpeg",
+            JPEG_QUALITY
+        );
+    });
 }
 
 export async function uploadImage(file: File): Promise<string> {

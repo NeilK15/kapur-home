@@ -42,7 +42,7 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
                 {!uploading && (
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/png"
                         onChange={handleFileChange}
                         style={{
                             position: "absolute",
@@ -57,25 +57,37 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
             </div>
 
             {debugInfo && (
-                <div style={{
-                    marginTop: "8px",
-                    padding: "8px",
-                    background: errorMsg ? "#3b0000" : "#003b00",
-                    borderRadius: "6px",
-                    fontSize: "0.75rem",
-                    color: "#eee",
-                    lineHeight: "1.6",
-                    wordBreak: "break-word",
-                }}>
-                    <strong>Upload debug</strong><br />
-                    Type: {debugInfo.fileType}<br />
-                    Original size: {debugInfo.fileSize}<br />
-                    Read into memory: {debugInfo.readIntoMemory ? "yes" : "no"}<br />
-                    Compressed: {debugInfo.compressed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}<br />
-                    {errorMsg
-                        ? <>Failed at: <strong>{debugInfo.failedAt}</strong><br />Error: {errorMsg}</>
-                        : <strong style={{ color: "#7fff7f" }}>Upload succeeded</strong>
-                    }
+                <div
+                    style={{
+                        marginTop: "8px",
+                        padding: "8px",
+                        background: errorMsg ? "#3b0000" : "#003b00",
+                        borderRadius: "6px",
+                        fontSize: "0.75rem",
+                        color: "#eee",
+                        lineHeight: "1.6",
+                        wordBreak: "break-word",
+                    }}
+                >
+                    <strong>Upload debug</strong>
+                    <br />
+                    Type: {debugInfo.fileType}
+                    <br />
+                    Original size: {debugInfo.fileSize}
+                    <br />
+                    Read into memory: {debugInfo.readIntoMemory ? "yes" : "no"}
+                    <br />
+                    Compressed: {debugInfo.compressed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}
+                    <br />
+                    {errorMsg ? (
+                        <>
+                            Failed at: <strong>{debugInfo.failedAt}</strong>
+                            <br />
+                            Error: {errorMsg}
+                        </>
+                    ) : (
+                        <strong style={{ color: "#7fff7f" }}>Upload succeeded</strong>
+                    )}
                 </div>
             )}
         </div>

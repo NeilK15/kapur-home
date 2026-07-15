@@ -7,13 +7,24 @@ const JPEG_QUALITY = 0.85;
 // HEIC/HEIF can't be decoded by canvas — send those straight to the server.
 const CANVAS_SUPPORTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
+// iPads running iOS 13+ report "MacIntel" but have touch points.
+function isIOS(): boolean {
+    return (
+        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+    );
+}
+
+// iOS invalidates the File object's underlying data after the page is suspended
+// while the camera app is open. blueimp-load-image works around this by reading
+// the file through its own iOS-aware pipeline and producing a fresh canvas.
+// Desktop browsers don't have this issue, so we send the file directly and let
+// the server's sharp handle resizing and conversion.
 async function processImage(file: File): Promise<Blob> {
-    if (!CANVAS_SUPPORTED_TYPES.has(file.type)) {
+    if (!isIOS() || !CANVAS_SUPPORTED_TYPES.has(file.type)) {
         return file;
     }
 
-    // blueimp-load-image handles iOS EXIF orientation and file reading quirks,
-    // and produces a canvas element fully disconnected from the original File.
     const result = await loadImage(file, {
         canvas: true,
         orientation: true,

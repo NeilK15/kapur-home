@@ -4,9 +4,11 @@ const MAX_DIMENSION = 2048;
 const JPEG_QUALITY = 0.85;
 const COMPRESS_THRESHOLD_BYTES = 4 * 1024 * 1024; // 4 MB
 
-// HEIC/HEIF can't be decoded by canvas on iOS — send those straight to the server.
-// JPEG, PNG, WebP load fine in a canvas on iOS Safari.
 const CANVAS_SUPPORTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
+
+function mb(bytes: number) {
+    return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+}
 
 async function compressForUpload(file: File): Promise<Blob> {
     if (file.size <= COMPRESS_THRESHOLD_BYTES || !CANVAS_SUPPORTED_TYPES.has(file.type)) {
@@ -34,16 +36,10 @@ async function compressForUpload(file: File): Promise<Blob> {
             const canvas = document.createElement("canvas");
             canvas.width = width;
             canvas.height = height;
-
             const ctx = canvas.getContext("2d");
-            if (!ctx) {
-                resolve(file);
-                return;
-            }
+            if (!ctx) { resolve(file); return; }
 
             ctx.drawImage(img, 0, 0, width, height);
-
-            // toDataURL is synchronous — avoids the silent-hang risk of toBlob on iOS
             const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
             fetch(dataUrl)
                 .then((r) => r.blob())
@@ -51,32 +47,66 @@ async function compressForUpload(file: File): Promise<Blob> {
                 .catch(() => resolve(file));
         };
 
-        img.onerror = () => {
-            URL.revokeObjectURL(objectUrl);
-            resolve(file);
-        };
-
+        img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
         img.src = objectUrl;
     });
 }
 
-export async function uploadImage(file: File): Promise<string> {
-    const blob = await compressForUpload(file);
+export type UploadDebugInfo = {
+    fileType: string;
+    fileSize: string;
+    compressed: boolean;
+    blobSize: string;
+    failedAt: "compression" | "fetch" | "server" | null;
+};
 
-    const formData = new FormData();
-    formData.append("image", blob, "image.jpg");
+export async function uploadImage(
+    file: File,
+    onDebug?: (info: UploadDebugInfo) => void
+): Promise<string> {
+    const debug: UploadDebugInfo = {
+        fileType: file.type || "unknown",
+        fileSize: mb(file.size),
+        compressed: false,
+        blobSize: mb(file.size),
+        failedAt: null,
+    };
 
-    const res = await fetch(`${import.meta.env.VITE_API_URI}/upload/image`, {
-        method: "POST",
-        headers: { ...(await authHeaders()) },
-        body: formData,
-    });
-
-    if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error ?? `Server error ${res.status}`);
+    let blob: Blob;
+    try {
+        blob = await compressForUpload(file);
+        debug.compressed = blob !== file && blob.size < file.size;
+        debug.blobSize = mb(blob.size);
+    } catch (err) {
+        debug.failedAt = "compression";
+        onDebug?.(debug);
+        throw new Error(`Compression error: ${err instanceof Error ? err.message : err}`);
     }
 
+    let res: Response;
+    try {
+        const formData = new FormData();
+        formData.append("image", blob, "image.jpg");
+
+        res = await fetch(`${import.meta.env.VITE_API_URI}/upload/image`, {
+            method: "POST",
+            headers: { ...(await authHeaders()) },
+            body: formData,
+        });
+    } catch (err) {
+        debug.failedAt = "fetch";
+        onDebug?.(debug);
+        throw new Error(`Network error sending to server: ${err instanceof Error ? err.message : err}`);
+    }
+
+    if (!res.ok) {
+        debug.failedAt = "server";
+        onDebug?.(debug);
+        const body = await res.json().catch(() => ({}));
+        throw new Error(`Server error ${res.status}: ${body.error ?? "unknown"}`);
+    }
+
+    onDebug?.(debug);
     const { imageUrl } = await res.json();
     return imageUrl;
 }

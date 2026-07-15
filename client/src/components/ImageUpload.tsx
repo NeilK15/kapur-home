@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadImage } from "../../lib/storage";
+import { uploadImage, UploadDebugInfo } from "../../lib/storage";
 
 type Props = {
     currentUrl: string;
@@ -10,19 +10,23 @@ type Props = {
 
 const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
     const [uploading, setUploading] = useState(false);
+    const [debugInfo, setDebugInfo] = useState<UploadDebugInfo | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
     async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
         if (!file) return;
-        // Reset so the same file can be re-selected later
         e.target.value = "";
 
         setUploading(true);
+        setErrorMsg(null);
+        setDebugInfo(null);
+
         try {
-            const url = await uploadImage(file);
+            const url = await uploadImage(file, setDebugInfo);
             onUpload(url);
         } catch (err) {
-            alert(`Failed to upload image: ${err instanceof Error ? err.message : "unknown error"}`);
+            setErrorMsg(err instanceof Error ? err.message : "unknown error");
         } finally {
             setUploading(false);
         }
@@ -31,17 +35,8 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
     return (
         <div className="image_upload">
             {currentUrl && <img src={currentUrl} alt={alt} className={className} />}
-            {/*
-             * Overlay pattern: the invisible <input> sits on top of the visible button.
-             * iOS Safari only opens the file picker for direct taps on native inputs —
-             * programmatic .click() from a React handler is often blocked as non-trusted.
-             */}
             <div style={{ position: "relative", display: "inline-block" }}>
-                <button
-                    type="button"
-                    disabled={uploading}
-                    className="image_upload__button"
-                >
+                <button type="button" disabled={uploading} className="image_upload__button">
                     {uploading ? "Uploading..." : currentUrl ? "Change Image" : "Add Image"}
                 </button>
                 {!uploading && (
@@ -60,6 +55,28 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
                     />
                 )}
             </div>
+
+            {debugInfo && (
+                <div style={{
+                    marginTop: "8px",
+                    padding: "8px",
+                    background: errorMsg ? "#3b0000" : "#003b00",
+                    borderRadius: "6px",
+                    fontSize: "0.75rem",
+                    color: "#eee",
+                    lineHeight: "1.6",
+                    wordBreak: "break-word",
+                }}>
+                    <strong>Upload debug</strong><br />
+                    Type: {debugInfo.fileType}<br />
+                    Original size: {debugInfo.fileSize}<br />
+                    Compressed: {debugInfo.compressed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}<br />
+                    {errorMsg
+                        ? <>Failed at: <strong>{debugInfo.failedAt}</strong><br />Error: {errorMsg}</>
+                        : <strong style={{ color: "#7fff7f" }}>Upload succeeded</strong>
+                    }
+                </div>
+            )}
         </div>
     );
 };

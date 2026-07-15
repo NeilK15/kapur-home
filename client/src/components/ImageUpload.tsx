@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadImage, UploadDebugInfo } from "../../lib/storage";
+import { uploadImage } from "../../lib/storage";
 
 type Props = {
     currentUrl: string;
@@ -10,7 +10,6 @@ type Props = {
 
 const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
     const [uploading, setUploading] = useState(false);
-    const [debugInfo, setDebugInfo] = useState<UploadDebugInfo | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
     async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -20,13 +19,12 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
 
         setUploading(true);
         setErrorMsg(null);
-        setDebugInfo(null);
 
         try {
-            const url = await uploadImage(file, setDebugInfo);
+            const url = await uploadImage(file);
             onUpload(url);
         } catch (err) {
-            setErrorMsg(err instanceof Error ? err.message : "unknown error");
+            setErrorMsg(err instanceof Error ? err.message : "Failed to upload image");
         } finally {
             setUploading(false);
         }
@@ -55,38 +53,10 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
                     />
                 )}
             </div>
-
-            {debugInfo && (
-                <div
-                    style={{
-                        marginTop: "8px",
-                        padding: "8px",
-                        background: errorMsg ? "#3b0000" : "#003b00",
-                        borderRadius: "6px",
-                        fontSize: "0.75rem",
-                        color: "#eee",
-                        lineHeight: "1.6",
-                        wordBreak: "break-word",
-                    }}
-                >
-                    <strong>Upload debug</strong>
-                    <br />
-                    Type: {debugInfo.fileType}
-                    <br />
-                    Original size: {debugInfo.fileSize}
-                    <br />
-                    Processed via blueimp: {debugInfo.processed ? `yes → ${debugInfo.blobSize}` : `no (${debugInfo.blobSize})`}
-                    <br />
-                    {errorMsg ? (
-                        <>
-                            Failed at: <strong>{debugInfo.failedAt}</strong>
-                            <br />
-                            Error: {errorMsg}
-                        </>
-                    ) : (
-                        <strong style={{ color: "#7fff7f" }}>Upload succeeded</strong>
-                    )}
-                </div>
+            {errorMsg && (
+                <p style={{ color: "#f87171", fontSize: "0.8rem", marginTop: "6px" }}>
+                    {errorMsg}
+                </p>
             )}
         </div>
     );

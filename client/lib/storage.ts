@@ -2,7 +2,6 @@ import { authHeaders } from "./api";
 
 const MAX_DIMENSION = 2048;
 const JPEG_QUALITY = 0.85;
-const COMPRESS_THRESHOLD_BYTES = 4 * 1024 * 1024; // 4 MB
 
 const CANVAS_SUPPORTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
@@ -24,7 +23,7 @@ function readIntoMemory(file: File): Promise<ArrayBuffer> {
 }
 
 async function compressForUpload(blob: Blob, type: string): Promise<Blob> {
-    if (blob.size <= COMPRESS_THRESHOLD_BYTES || !CANVAS_SUPPORTED_TYPES.has(type)) {
+    if (!CANVAS_SUPPORTED_TYPES.has(type)) {
         return blob;
     }
 

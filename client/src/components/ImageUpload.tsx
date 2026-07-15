@@ -42,7 +42,7 @@ const ImageUpload = ({ currentUrl, alt, className, onUpload }: Props) => {
                 {!uploading && (
                     <input
                         type="file"
-                        accept="image/png"
+                        accept="image/*"
                         onChange={handleFileChange}
                         style={{
                             position: "absolute",

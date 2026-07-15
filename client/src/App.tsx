@@ -20,33 +20,11 @@ const authFormFields = {
             placeholder: "Enter your email address",
         },
     },
-    signUp: {
-        username: {
-            label: "Email",
-            placeholder: "Enter your email address",
-            order: 1,
-        },
-        password: { order: 2 },
-        confirm_password: { order: 3 },
-    },
-};
-
-const authComponents = {
-    ConfirmSignUp: {
-        Header() {
-            return (
-                <p style={{ margin: "0 0 8px 0", fontSize: "0.9em", color: "#555" }}>
-                    We sent a verification code to your email. If you don't see it, check your{" "}
-                    <strong>spam or junk folder</strong>.
-                </p>
-            );
-        },
-    },
 };
 
 function App() {
     return (
-        <Authenticator formFields={authFormFields} components={authComponents}>
+        <Authenticator formFields={authFormFields} hideSignUp>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Recipes />} />

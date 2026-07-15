@@ -20,18 +20,13 @@ function isIOS(): boolean {
 // the file through its own iOS-aware pipeline and producing a fresh canvas.
 // Desktop browsers don't have this issue, so we send the file directly and let
 // the server's sharp handle resizing and conversion.
-async function processImage(file: File): Promise<Blob> {
-    if (!isIOS() || !CANVAS_SUPPORTED_TYPES.has(file.type)) {
-        return file;
-    }
-
+async function processImageIOS(file: File): Promise<Blob> {
     const result = await loadImage(file, {
         canvas: true,
         orientation: true,
         maxWidth: MAX_DIMENSION,
         maxHeight: MAX_DIMENSION,
     });
-
     const canvas = result.image as HTMLCanvasElement;
     return new Promise<Blob>((resolve, reject) => {
         canvas.toBlob(
@@ -40,6 +35,51 @@ async function processImage(file: File): Promise<Blob> {
             JPEG_QUALITY
         );
     });
+}
+
+function processImageDesktop(file: File): Promise<Blob> {
+    return new Promise((resolve) => {
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
+
+        img.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+
+            let { width, height } = img;
+            if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+                if (width >= height) {
+                    height = Math.round((height * MAX_DIMENSION) / width);
+                    width = MAX_DIMENSION;
+                } else {
+                    width = Math.round((width * MAX_DIMENSION) / height);
+                    height = MAX_DIMENSION;
+                }
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) { resolve(file); return; }
+
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob(
+                (blob) => resolve(blob ?? file),
+                "image/jpeg",
+                JPEG_QUALITY
+            );
+        };
+
+        img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
+        img.src = objectUrl;
+    });
+}
+
+async function processImage(file: File): Promise<Blob> {
+    if (!CANVAS_SUPPORTED_TYPES.has(file.type)) {
+        return file; // HEIC etc — server handles conversion
+    }
+    return isIOS() ? processImageIOS(file) : processImageDesktop(file);
 }
 
 export async function uploadImage(file: File): Promise<string> {

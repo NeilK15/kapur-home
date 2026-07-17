@@ -2,6 +2,7 @@ import { useState } from "react";
 import { updatePreferences, applyTheme } from "../../lib/preferences";
 import { useTheme } from "../context/ThemeContext";
 import type { Theme } from "../context/ThemeContext";
+import { version } from "../../package.json";
 import "../css/settings.css";
 
 const Settings = () => {
@@ -51,6 +52,8 @@ const Settings = () => {
                     </div>
                 </div>
             </section>
+
+            <p className="settings__version">Kapur Home v{version}</p>
         </div>
     );
 };

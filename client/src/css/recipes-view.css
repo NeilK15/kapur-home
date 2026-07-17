@@ -11,7 +11,7 @@
     height: 45vh;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-    background-color: #0d144f5b;
+    background-color: rgba(0, 0, 0, 0.6);
     background-blend-mode: multiply;
     transform: translateZ(0);
 
@@ -42,6 +42,10 @@
     color: white;
 }
 
+.recipe_tiles a.recipe_tile--mobile {
+    color: var(--mobile-tile-text);
+}
+
 .recipe_tile--details {
     display: flex;
     flex-direction: column;
@@ -70,9 +74,18 @@
         }
     }
 
-    .details__time--prep_time { width: 27%; order: 0; }
-    .details__time--cook_time { width: 27%; order: 1; }
-    .details__time--total_time { width: 27%; order: 2; }
+    .details__time--prep_time {
+        width: 27%;
+        order: 0;
+    }
+    .details__time--cook_time {
+        width: 27%;
+        order: 1;
+    }
+    .details__time--total_time {
+        width: 27%;
+        order: 2;
+    }
 }
 
 .recipe_tile--details > div {
@@ -139,11 +152,21 @@
 
 /* ===== Animations ===== */
 @keyframes darken {
-    from { background-color: #0d144f5b; color: rgba(255, 255, 255, 0); }
-    to   { background-color: rgba(0, 0, 0, 0.8); color: white; }
+    from {
+        background-color: #0d144f5b;
+        color: rgba(255, 255, 255, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+    }
 }
 
 @keyframes reveal {
-    from { color: rgba(255, 255, 255, 0); }
-    to   { color: white; }
+    from {
+        color: rgba(255, 255, 255, 0);
+    }
+    to {
+        color: white;
+    }
 }

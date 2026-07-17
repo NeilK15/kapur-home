@@ -1,22 +1,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap");
 
 :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    /* Backgrounds */
+    --bg-primary: rgb(6, 0, 38);
+    --bg-secondary: rgb(15, 8, 55);
+    --bg-input: rgb(14, 6, 52);
+    --bg-card-hover: rgb(25, 15, 75);
+    --bg-modal: rgb(10, 20, 35);
+    --bg-modal-form: rgb(0, 20, 38);
+    --bg-modal-hover: rgb(0, 26, 48);
+
+    /* Text */
+    --text-primary: rgb(239, 255, 234);
+    --text-muted: rgba(255, 255, 255, 0.55);
+    --text-subtle: rgba(255, 255, 255, 0.3);
+
+    /* Borders */
+    --border: rgba(77, 64, 156, 0.7);
+    --border-subtle: rgba(77, 64, 156, 0.35);
+    --border-modal: rgb(67, 67, 67);
+
+    /* Accent */
+    --accent: rgb(181, 255, 197);
+    --accent-text: rgb(6, 0, 38);
+    --accent-fg: rgb(181, 255, 197);
+    --accent-fg-muted: rgba(181, 255, 197, 0.7);
+
+    /* Misc */
+    --cerulean: rgb(0, 26, 48);
+    --mobile-tile-bg: rgba(6, 0, 38, 0.9);
+    --mobile-tile-border: rgba(255, 255, 255, 0.1);
+    --mobile-tile-text: white;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-    }
+[data-theme="light"] {
+    --bg-primary: #d3d3d3;
+    --bg-secondary: #e3e3e3;
+    --bg-input: #ffffff;
+    --bg-card-hover: #e2e6ed;
+    --bg-modal: #ffffff;
+    --bg-modal-form: #f8fafc;
+    --bg-modal-hover: #f0f4f8;
+
+    --text-primary: #1a1a2e;
+    --text-muted: #6b7280;
+    --text-subtle: #9ca3af;
+
+    --border: #d1d5db;
+    --border-subtle: #e5e7eb;
+    --border-modal: #e5e7eb;
+
+    --accent: rgb(181, 255, 197);
+    --accent-text: #1a1a2e;
+    --accent-fg: #1a7a45;
+    --accent-fg-muted: #4a9d6a;
+
+    --cerulean: #e5e7eb;
+    --mobile-tile-bg: rgba(255, 255, 255, 0.95);
+    --mobile-tile-border: rgba(0, 0, 0, 0.1);
+    --mobile-tile-text: #1a1a2e;
 }
 
 body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     display: flex;
     flex-direction: column;
     margin: 0;

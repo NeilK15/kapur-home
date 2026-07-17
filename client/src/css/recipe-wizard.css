@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 64px);
-    background-color: rgb(6, 0, 38);
+    background-color: var(--bg-primary);
     font-family: "Roboto", sans-serif;
-    color: rgb(239, 255, 234);
+    color: var(--text-primary);
 }
 
 /* ── Progress bar ───────────────────────────────────────── */
@@ -15,8 +15,8 @@
     justify-content: center;
     gap: 0;
     padding: 20px 24px 16px;
-    background-color: rgb(6, 0, 38);
-    border-bottom: 1px solid rgba(77, 64, 156, 0.4);
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-subtle);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -44,7 +44,7 @@
     right: 50%;
     left: -50%;
     height: 2px;
-    background-color: rgba(77, 64, 156, 0.4);
+    background-color: var(--border-subtle);
 }
 
 .wz__progress__step:first-child::before {
@@ -53,52 +53,52 @@
 
 .wz__progress__step--done::before,
 .wz__progress__step--active::before {
-    background-color: rgb(181, 255, 197);
+    background-color: var(--accent-fg);
 }
 
 .wz__progress__dot {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 2px solid rgba(77, 64, 156, 0.6);
-    background-color: rgb(6, 0, 38);
+    border: 2px solid var(--border);
+    background-color: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-subtle);
     position: relative;
     z-index: 1;
     transition: all 0.2s;
 }
 
 .wz__progress__step--active .wz__progress__dot {
-    border-color: rgb(181, 255, 197);
-    background-color: rgb(181, 255, 197);
-    color: rgb(6, 0, 38);
+    border-color: var(--accent-fg);
+    background-color: var(--accent);
+    color: var(--accent-text);
 }
 
 .wz__progress__step--done .wz__progress__dot {
-    border-color: rgb(181, 255, 197);
-    background-color: rgb(6, 0, 38);
-    color: rgb(181, 255, 197);
+    border-color: var(--accent-fg);
+    background-color: var(--bg-primary);
+    color: var(--accent-fg);
 }
 
 .wz__progress__label {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--text-subtle);
     white-space: nowrap;
     letter-spacing: 0.3px;
 }
 
 .wz__progress__step--active .wz__progress__label {
-    color: rgb(181, 255, 197);
+    color: var(--accent-fg);
     font-weight: 700;
 }
 
 .wz__progress__step--done .wz__progress__label {
-    color: rgba(181, 255, 197, 0.7);
+    color: var(--accent-fg-muted);
 }
 
 /* ── Step content ───────────────────────────────────────── */
@@ -116,12 +116,12 @@
     font-size: 24px;
     font-weight: 700;
     margin: 0 0 6px;
-    color: white;
+    color: var(--text-primary);
 }
 
 .wz__step__subtitle {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--text-muted);
     margin: 0 0 28px;
 }
 
@@ -136,7 +136,7 @@
 .wz__label {
     font-size: 13px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -144,10 +144,10 @@
 .wz__input,
 .wz__textarea,
 .wz__select {
-    background-color: rgb(14, 6, 52);
-    border: 1px solid rgba(77, 64, 156, 0.7);
+    background-color: var(--bg-input);
+    border: 1px solid var(--border);
     border-radius: 8px;
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     padding: 12px 14px;
@@ -160,12 +160,12 @@
 .wz__textarea:focus,
 .wz__select:focus {
     outline: none;
-    border-color: rgb(181, 255, 197);
+    border-color: var(--accent-fg);
 }
 
 .wz__input::placeholder,
 .wz__textarea::placeholder {
-    color: rgba(255, 255, 255, 0.25);
+    color: var(--text-subtle);
 }
 
 .wz__textarea {
@@ -179,7 +179,7 @@
 }
 
 .wz__select option {
-    background-color: rgb(14, 6, 52);
+    background-color: var(--bg-input);
 }
 
 /* ── Two-col grid ───────────────────────────────────────── */
@@ -201,15 +201,15 @@
     flex-wrap: wrap;
     gap: 8px;
     padding: 10px 12px;
-    background-color: rgb(14, 6, 52);
-    border: 1px solid rgba(77, 64, 156, 0.7);
+    background-color: var(--bg-input);
+    border: 1px solid var(--border);
     border-radius: 8px;
     min-height: 48px;
     cursor: text;
 }
 
 .wz__tags:focus-within {
-    border-color: rgb(181, 255, 197);
+    border-color: var(--accent-fg);
 }
 
 .wz__tag {
@@ -220,13 +220,13 @@
     border-radius: 20px;
     padding: 4px 12px;
     font-size: 13px;
-    color: rgb(181, 255, 197);
+    color: var(--accent-fg);
 }
 
 .wz__tag__remove {
     background: transparent;
     border: none;
-    color: rgba(181, 255, 197, 0.6);
+    color: var(--accent-fg-muted);
     font-size: 16px;
     line-height: 1;
     cursor: pointer;
@@ -236,13 +236,13 @@
 }
 
 .wz__tag__remove:hover {
-    color: rgb(181, 255, 197);
+    color: var(--accent-fg);
 }
 
 .wz__tags__input {
     background: transparent;
     border: none;
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     flex: 1;
@@ -256,14 +256,14 @@
 
 .wz__tags__hint {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-subtle);
     margin-top: 4px;
 }
 
 /* ── Divider ────────────────────────────────────────────── */
 .wz__divider {
     border: none;
-    border-top: 1px solid rgba(77, 64, 156, 0.3);
+    border-top: 1px solid var(--border-subtle);
     margin: 24px 0;
 }
 
@@ -278,7 +278,7 @@
 .wz__section_title {
     font-size: 16px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -287,9 +287,9 @@
     width: 100%;
     padding: 12px;
     background: transparent;
-    border: 1px dashed rgba(77, 64, 156, 0.6);
+    border: 1px dashed var(--border);
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     cursor: pointer;
@@ -298,15 +298,15 @@
 }
 
 .wz__add_group:hover {
-    border-color: rgba(181, 255, 197, 0.5);
-    color: rgb(181, 255, 197);
+    border-color: var(--accent-fg);
+    color: var(--accent-fg);
 }
 
 /* ── Add item button ────────────────────────────────────── */
 .wz__add_item {
     background: transparent;
     border: none;
-    color: rgba(181, 255, 197, 0.7);
+    color: var(--accent-fg-muted);
     font-family: "Roboto", sans-serif;
     font-size: 13px;
     cursor: pointer;
@@ -317,13 +317,13 @@
 }
 
 .wz__add_item:hover {
-    color: rgb(181, 255, 197);
+    color: var(--accent-fg);
 }
 
 /* ── Ingredient group card ──────────────────────────────── */
 .wz__group_card {
     background-color: rgba(77, 64, 156, 0.08);
-    border: 1px solid rgba(77, 64, 156, 0.35);
+    border: 1px solid var(--border-subtle);
     border-radius: 10px;
     padding: 16px;
     margin-bottom: 16px;
@@ -340,9 +340,9 @@
     flex: 1;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(77, 64, 156, 0.5);
+    border-bottom: 1px solid var(--border);
     border-radius: 0;
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -351,11 +351,11 @@
 
 .wz__group_card__title_input:focus {
     outline: none;
-    border-bottom-color: rgb(181, 255, 197);
+    border-bottom-color: var(--accent-fg);
 }
 
 .wz__group_card__title_input::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-subtle);
     font-weight: 400;
 }
 
@@ -384,10 +384,10 @@
 }
 
 .wz__ingredient_row__input {
-    background-color: rgb(14, 6, 52);
-    border: 1px solid rgba(77, 64, 156, 0.5);
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-subtle);
     border-radius: 6px;
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     padding: 9px 10px;
@@ -397,11 +397,11 @@
 
 .wz__ingredient_row__input:focus {
     outline: none;
-    border-color: rgb(181, 255, 197);
+    border-color: var(--accent-fg);
 }
 
 .wz__ingredient_row__input::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: var(--text-subtle);
 }
 
 .wz__delete_item {
@@ -430,7 +430,7 @@
 
 .wz__ingredient_col_label {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-subtle);
     text-transform: uppercase;
     letter-spacing: 0.4px;
     padding: 0 2px;
@@ -449,7 +449,7 @@
     height: 28px;
     border-radius: 50%;
     background-color: rgba(77, 64, 156, 0.4);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
     font-size: 12px;
     font-weight: 700;
     display: flex;
@@ -479,8 +479,8 @@
     left: 0;
     right: 0;
     padding: 14px 24px;
-    background-color: rgb(6, 0, 38);
-    border-top: 1px solid rgba(77, 64, 156, 0.4);
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-subtle);
     display: flex;
     gap: 12px;
     z-index: 10;
@@ -489,9 +489,9 @@
 .wz__footer__back {
     padding: 14px 24px;
     background: transparent;
-    border: 1px solid rgba(77, 64, 156, 0.6);
+    border: 1px solid var(--border);
     border-radius: 10px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-muted);
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -500,17 +500,17 @@
 }
 
 .wz__footer__back:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    color: white;
+    border-color: var(--text-primary);
+    color: var(--text-primary);
 }
 
 .wz__footer__next {
     flex: 1;
     padding: 14px;
-    background-color: rgb(181, 255, 197);
+    background-color: var(--accent);
     border: none;
     border-radius: 10px;
-    color: rgb(6, 0, 38);
+    color: var(--accent-text);
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -536,7 +536,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    border-bottom: 1px solid rgba(77, 64, 156, 0.3);
+    border-bottom: 1px solid var(--border-subtle);
     padding-bottom: 6px;
 }
 
@@ -545,14 +545,14 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     margin: 0;
 }
 
 .wz__review_section__edit {
     background: transparent;
     border: none;
-    color: rgba(181, 255, 197, 0.7);
+    color: var(--accent-fg-muted);
     font-family: "Roboto", sans-serif;
     font-size: 13px;
     cursor: pointer;
@@ -560,20 +560,20 @@
 }
 
 .wz__review_section__edit:hover {
-    color: rgb(181, 255, 197);
+    color: var(--accent-fg);
 }
 
 .wz__review__name {
     font-size: 28px;
     font-weight: 700;
     margin: 0 0 8px;
-    color: white;
+    color: var(--text-primary);
 }
 
 .wz__review__description {
     font-size: 15px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -590,11 +590,11 @@
     flex-wrap: wrap;
     gap: 16px;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
 }
 
 .wz__review__meta__item strong {
-    color: white;
+    color: var(--text-primary);
 }
 
 .wz__review__ingredient_group {
@@ -604,28 +604,28 @@
 .wz__review__group_title {
     font-size: 14px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-muted);
     margin: 0 0 6px;
 }
 
 .wz__review__ingredient {
     font-size: 14px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-primary);
     padding: 3px 0;
 }
 
 .wz__review__instruction {
     font-size: 14px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-primary);
     padding: 4px 0;
     counter-increment: instruction;
 }
 
 .wz__review__instruction::before {
     content: counter(instruction) ". ";
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-subtle);
 }
 
 .wz__review__instructions_list {
@@ -637,7 +637,7 @@
 
 .wz__review__empty {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-subtle);
     font-style: italic;
 }
 

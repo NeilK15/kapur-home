@@ -15,6 +15,7 @@ import Nutrition from "./Nutrition";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { updateRecipeById, createRecipeManually } from "../../../lib/api";
 import ImageUpload from "../ImageUpload";
+import { useTheme } from "../../context/ThemeContext";
 
 type Props = {
     recipeData: RecipeData;
@@ -23,6 +24,8 @@ type Props = {
 
 const Recipe = ({ recipeData }: Props) => {
     const navigate = useNavigate();
+    const { theme } = useTheme();
+    const deleteIcon = `/icons/delete-${theme === "light" ? "light" : "dark"}.svg`;
 
     const detailsData = {
         prepTime: recipeData.prepTime,
@@ -319,7 +322,7 @@ const Recipe = ({ recipeData }: Props) => {
                                                 onClick={() => deleteIngredientGroup(index)}
                                                 className="group_delete_button"
                                             >
-                                                <img className="group_delete_img" src="/trash.png" alt="Delete" />
+                                                <img className="group_delete_img" src={deleteIcon} alt="Delete" />
                                             </button>
                                         </div>
                                         <ContentEditable
@@ -367,7 +370,7 @@ const Recipe = ({ recipeData }: Props) => {
                                                 onClick={() => deleteInstructionGroup(iGIndex)}
                                                 className="group_delete_button"
                                             >
-                                                <img className="group_delete_img" src="/trash.png" alt="Delete" />
+                                                <img className="group_delete_img" src={deleteIcon} alt="Delete" />
                                             </button>
                                         </div>
                                         <ol className="instruction_group__instructions">
@@ -388,7 +391,7 @@ const Recipe = ({ recipeData }: Props) => {
                                                             >
                                                                 <img
                                                                     className="group_delete_img"
-                                                                    src="/trash.png"
+                                                                    src={deleteIcon}
                                                                     alt="Delete"
                                                                 />
                                                             </button>

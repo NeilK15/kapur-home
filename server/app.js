@@ -27,10 +27,12 @@ const homeRouter = require("./routes/home");
 const recipeRouter = require("./routes/recipe");
 const cookbookRouter = require("./routes/cookbook");
 const uploadRouter = require("./routes/upload");
+const preferencesRouter = require("./routes/preferences");
 
 app.use(`${ROOT}/recipes`, recipeRouter);
 app.use(`${ROOT}/cookbooks`, cookbookRouter);
 app.use(`${ROOT}/upload`, uploadRouter);
+app.use(`${ROOT}/preferences`, preferencesRouter);
 app.use(ROOT, homeRouter);
 
 app.use((err, req, res, next) => {

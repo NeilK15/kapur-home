@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import AddRecipeModal from "../../components/AddRecipeModal";
+import { useTheme } from "../../context/ThemeContext";
 import "./navbar.css";
 
 type NavButtonRegProps = {
@@ -17,14 +18,14 @@ const NavButtonReg = ({ onClick, imgSrc, onHoverText, clsName, isMobile }: NavBu
     const [isHovering, setIsHovering] = useState(false);
 
     return (
-        <li className={`navbar__navitem ${clsName}`}>
+        <li className={`navbar__navitem ${clsName ?? ""}`}>
             <button
                 onClick={onClick}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
                 className="navitem__button"
             >
-                <img className="navitem__img" src={imgSrc} alt={imgSrc} />
+                <img className="navitem__img" src={imgSrc} alt="" />
             </button>
             {onHoverText ? (
                 isHovering && !isMobile ? (
@@ -32,9 +33,7 @@ const NavButtonReg = ({ onClick, imgSrc, onHoverText, clsName, isMobile }: NavBu
                 ) : (
                     <span className="navitem__tooltip tooltip--hidden">{onHoverText}</span>
                 )
-            ) : (
-                <></>
-            )}
+            ) : null}
         </li>
     );
 };
@@ -42,6 +41,7 @@ const NavButtonReg = ({ onClick, imgSrc, onHoverText, clsName, isMobile }: NavBu
 const Navbar = () => {
     const navigate = useNavigate();
     const { signOut } = useAuthenticator();
+    const { theme } = useTheme();
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
     const [showHamburger, setShowHamburger] = useState(false);
@@ -53,11 +53,13 @@ const Navbar = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    const s = theme === "light" ? "light" : "dark";
+
     const laptopView = (
         <nav className="navbar navbar--laptop">
             <ul className="navbar__list">
                 <NavButtonReg
-                    imgSrc="/icons/chewie-outline.png"
+                    imgSrc={`/icons/chewie-${s}.png`}
                     onHoverText="Home"
                     onClick={() => navigate("/")}
                     clsName="navitem--tooltip_left"
@@ -65,21 +67,28 @@ const Navbar = () => {
                 />
                 <li className="navbar__navitem"></li>
                 <NavButtonReg
-                    imgSrc="/icons/add.png"
+                    imgSrc={`/icons/add-${s}.svg`}
                     onHoverText="Add Recipe"
                     onClick={() => setShowAddModal(true)}
                     clsName="navitem--first_right navitem--tooltip_right"
                     isMobile={false}
                 />
                 <NavButtonReg
-                    imgSrc="/icons/books2.png"
+                    imgSrc={`/icons/cookbooks-${s}.svg`}
                     onHoverText="Cookbooks"
                     onClick={() => navigate("/cookbooks")}
                     clsName="navitem--tooltip_right"
                     isMobile={false}
                 />
                 <NavButtonReg
-                    imgSrc="/icons/exit.png"
+                    imgSrc={`/icons/settings-${s}.svg`}
+                    onHoverText="Settings"
+                    onClick={() => navigate("/settings")}
+                    clsName="navitem--tooltip_right"
+                    isMobile={false}
+                />
+                <NavButtonReg
+                    imgSrc={`/icons/logout-${s}.svg`}
                     onHoverText="Sign Out"
                     onClick={signOut}
                     clsName="navitem--tooltip_right"
@@ -93,24 +102,28 @@ const Navbar = () => {
         <nav className="navbar navbar--mobile">
             <ul className="navbar__list">
                 <NavButtonReg
-                    imgSrc="/icons/chewie-outline.png"
+                    imgSrc={`/icons/chewie-${s}.png`}
                     onClick={() => navigate("/")}
                     clsName="navitem--tooltip_left"
                     isMobile={true}
                 />
                 <NavButtonReg
-                    imgSrc="/icons/add.png"
+                    imgSrc={`/icons/add-${s}.svg`}
                     onClick={() => setShowAddModal(true)}
                     clsName="navitem--first_right"
                     isMobile={true}
                 />
-                <NavButtonReg imgSrc="/icons/hamburger.png" onClick={() => setShowHamburger(true)} isMobile={true} />
+                <NavButtonReg
+                    imgSrc={`/icons/hamburger-${s}.svg`}
+                    onClick={() => setShowHamburger(true)}
+                    isMobile={true}
+                />
             </ul>
             {showHamburger && (
                 <div className="navbar__modal">
                     <div className="navbar__modal__top">
                         <button className="navbar__modal__close" onClick={() => setShowHamburger(false)}>
-                            <img src="/close.png" alt="Close" />
+                            <img src={`/icons/close-${s}.svg`} alt="Close" />
                         </button>
                     </div>
                     <ul className="navbar__modal__links">
@@ -122,6 +135,11 @@ const Navbar = () => {
                         <li>
                             <Link to="/cookbooks" onClick={() => setShowHamburger(false)}>
                                 Cookbooks
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/settings" onClick={() => setShowHamburger(false)}>
+                                Settings
                             </Link>
                         </li>
                         <li>

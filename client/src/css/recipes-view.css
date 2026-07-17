@@ -1,8 +1,3 @@
-:root {
-    --dark-filter: #0d144f5b;
-    --darker-filter: rgba(0, 0, 0, 0.8);
-}
-
 /* ===== Recipe grid (desktop) ===== */
 .recipe_tiles {
     display: flex;
@@ -16,7 +11,7 @@
     height: 45vh;
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-    background-color: var(--dark-filter);
+    background-color: #0d144f5b;
     background-blend-mode: multiply;
     transform: translateZ(0);
 
@@ -32,7 +27,7 @@
 
 .recipe_tile:hover {
     animation: darken 300ms;
-    background-color: var(--darker-filter);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .recipe_tile__title {
@@ -101,11 +96,11 @@
     height: 80px;
     margin: 6px 10px;
     border-radius: 10px;
-    background-color: rgba(6, 0, 38, 0.9);
+    background-color: var(--mobile-tile-bg);
     overflow: hidden;
     text-decoration: none;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--mobile-tile-text);
+    border: 1px solid var(--mobile-tile-border);
 }
 
 .img--mobile {
@@ -144,8 +139,8 @@
 
 /* ===== Animations ===== */
 @keyframes darken {
-    from { background-color: var(--dark-filter); color: rgba(255, 255, 255, 0); }
-    to   { background-color: var(--darker-filter); color: white; }
+    from { background-color: #0d144f5b; color: rgba(255, 255, 255, 0); }
+    to   { background-color: rgba(0, 0, 0, 0.8); color: white; }
 }
 
 @keyframes reveal {

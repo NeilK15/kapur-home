@@ -15,9 +15,9 @@ h3.header {
     width: 50vw;
     max-width: 900px;
     padding: 4vh;
-    background-color: rgb(6, 0, 38);
+    background-color: var(--bg-secondary);
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: rgb(239, 255, 234);
+    color: var(--text-primary);
 }
 
 /* Header and image */
@@ -41,7 +41,7 @@ h3.header {
 }
 
 .recipe__info__title a {
-    color: white;
+    color: var(--text-primary);
     text-decoration: none;
 }
 
@@ -177,8 +177,8 @@ h3.header {
 
             .action_buttons_list__item__button__img {
                 background-color: transparent;
-                object-fit: scale-down;
-                max-height: 90%;
+                object-fit: contain;
+                height: 65%;
                 width: auto;
             }
         }

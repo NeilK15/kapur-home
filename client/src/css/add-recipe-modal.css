@@ -11,11 +11,11 @@
 
 /* Modal — bottom sheet on mobile */
 .arm {
-    background: rgb(10, 20, 35);
+    background: var(--bg-modal);
     width: 100%;
     max-height: 80vh;
     border-radius: 16px 16px 0 0;
-    border-top: 1px solid rgb(67, 67, 67);
+    border-top: 1px solid var(--border-modal);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -31,7 +31,7 @@
         width: 100%;
         max-width: 460px;
         border-radius: 16px;
-        border: 1px solid rgb(67, 67, 67);
+        border: 1px solid var(--border-modal);
         max-height: 75vh;
     }
 }
@@ -42,7 +42,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid rgb(67, 67, 67);
+    border-bottom: 1px solid var(--border-modal);
     flex-shrink: 0;
 }
 
@@ -50,14 +50,14 @@
     margin: 0;
     font-size: 18px;
     font-weight: 500;
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
 }
 
 .arm__close {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
     font-size: 28px;
     line-height: 1;
     cursor: pointer;
@@ -67,7 +67,7 @@
 }
 
 .arm__close:hover {
-    color: white;
+    color: var(--text-primary);
 }
 
 /* Body */
@@ -79,7 +79,7 @@
 
 .arm__loading,
 .arm__empty {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     padding: 16px 20px;
@@ -97,7 +97,7 @@
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgb(35, 45, 60);
+    border-bottom: 1px solid var(--border-subtle);
     padding: 16px 20px;
     text-align: left;
     cursor: pointer;
@@ -109,23 +109,23 @@
 
 .arm__cookbook:hover,
 .arm__cookbook:focus {
-    background: rgb(0, 26, 48);
+    background: var(--bg-modal-hover);
     outline: none;
 }
 
 .arm__cookbook:active {
-    background: rgb(0, 35, 65);
+    background: var(--bg-modal-hover);
 }
 
 .arm__cookbook__name {
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     font-weight: 400;
 }
 
 .arm__cookbook__desc {
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--text-muted);
     font-family: "Roboto", sans-serif;
     font-size: 13px;
     white-space: nowrap;
@@ -140,9 +140,9 @@
     margin: 16px 20px 0;
     padding: 14px;
     background: transparent;
-    border: 1px dashed rgba(255, 255, 255, 0.25);
+    border: 1px dashed var(--border);
     border-radius: 10px;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--text-muted);
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     cursor: pointer;
@@ -150,8 +150,8 @@
 }
 
 .arm__new_button:hover {
-    border-color: rgba(255, 255, 255, 0.5);
-    color: white;
+    border-color: var(--text-primary);
+    color: var(--text-primary);
 }
 
 /* New cookbook inline form */
@@ -164,10 +164,10 @@
 
 .arm__form__input,
 .arm__form__textarea {
-    background: rgb(0, 20, 38);
-    border: 1px solid rgb(67, 67, 67);
+    background: var(--bg-modal-form);
+    border: 1px solid var(--border-modal);
     border-radius: 8px;
-    color: white;
+    color: var(--text-primary);
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     padding: 12px 14px;
@@ -178,7 +178,7 @@
 .arm__form__input:focus,
 .arm__form__textarea:focus {
     outline: none;
-    border-color: rgba(181, 255, 197, 0.5);
+    border-color: var(--accent-fg);
 }
 
 .arm__form__textarea {
@@ -194,8 +194,8 @@
 .arm__form__submit {
     flex: 1;
     padding: 12px;
-    background: rgb(181, 255, 197);
-    color: rgb(0, 20, 38);
+    background: var(--accent);
+    color: var(--accent-text);
     border: none;
     border-radius: 8px;
     font-family: "Roboto", sans-serif;
@@ -216,8 +216,8 @@
 .arm__form__cancel {
     padding: 12px 18px;
     background: transparent;
-    color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgb(67, 67, 67);
+    color: var(--text-muted);
+    border: 1px solid var(--border-modal);
     border-radius: 8px;
     font-family: "Roboto", sans-serif;
     font-size: 15px;
@@ -225,6 +225,6 @@
 }
 
 .arm__form__cancel:hover {
-    color: white;
-    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--text-primary);
+    border-color: var(--border);
 }

@@ -1,14 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap");
 
 :root {
-    --french-gray: #d0ccd0ff;
-    --white: #fbfcffff;
-    --wenge: #605856ff;
-    --cerulean: rgb(0, 26, 48);
     --navbar: rgb(0, 11, 21);
     --navitemhover: rgb(0, 20, 38);
     --navitempressed: rgb(0, 25, 48);
     --navtooltip: rgb(48, 48, 48);
+    --navbar-border: rgb(67, 67, 67);
+    --navbar-modal-link: white;
+    --navbar-modal-signout-border: rgba(255, 255, 255, 0.3);
+    --navbar-modal-signout-color: white;
+}
+
+[data-theme="light"] {
+    --navbar: #eeeeee;
+    --navitemhover: #f0f4f8;
+    --navitempressed: #e2e6ed;
+    --navtooltip: #374151;
+    --navbar-border: #e5e7eb;
+    --navbar-modal-link: #1a1a2e;
+    --navbar-modal-signout-border: rgba(0, 0, 0, 0.15);
+    --navbar-modal-signout-color: #1a1a2e;
 }
 
 .navbar {
@@ -18,7 +29,7 @@
     align-items: center;
     justify-content: space-between;
     font-family: "Roboto", sans-serif;
-    border-bottom: 1px solid rgb(67, 67, 67);
+    border-bottom: 1px solid var(--navbar-border);
 
     .navbar__list {
         height: 100%;
@@ -48,23 +59,12 @@
                 justify-content: center;
                 align-items: center;
                 font-weight: 500;
-
-                /* border: 1px solid rgb(87, 87, 87); */
                 border: 1px;
-                /* border-radius: 5px; */
 
                 .navitem__img {
                     height: 75%;
                     filter: brightness(0.85);
                 }
-            }
-
-            .navitem__button:hover {
-                /* background-color: var(--navitemhover); */
-            }
-
-            .navitem__button:active {
-                /* background-color: var(--navitempressed); */
             }
 
             .navitem__tooltip {
@@ -137,7 +137,7 @@
         justify-content: flex-end;
         align-items: center;
         padding: 0 10px;
-        border-bottom: 1px solid rgb(67, 67, 67);
+        border-bottom: 1px solid var(--navbar-border);
 
         .navbar__modal__close {
             background: transparent;
@@ -149,7 +149,6 @@
 
             img {
                 height: 36%;
-                filter: brightness(0.7);
             }
         }
     }
@@ -166,7 +165,7 @@
         padding: 0;
 
         a {
-            color: white;
+            color: var(--navbar-modal-link);
             text-decoration: none;
             font-size: 28px;
             font-weight: 300;
@@ -181,9 +180,9 @@
 
 .navbar__modal__signout {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--navbar-modal-signout-border);
     border-radius: 8px;
-    color: white;
+    color: var(--navbar-modal-signout-color);
     font-size: 28px;
     font-weight: 300;
     font-family: "Roboto", sans-serif;

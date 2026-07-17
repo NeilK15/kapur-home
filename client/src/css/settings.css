@@ -1,0 +1,100 @@
+.settings_page {
+    padding: 4vh 6vw;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.settings__loading {
+    color: var(--text-muted);
+}
+
+.settings__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 4vh 0;
+}
+
+.settings__section {
+    max-width: 600px;
+}
+
+.settings__section__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.settings__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.settings__option__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.settings__option__label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.settings__option__description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.settings__theme_buttons {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.settings__theme_btn {
+    padding: 8px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.settings__theme_btn:not(:last-child) {
+    border-right: 1px solid var(--border);
+}
+
+.settings__theme_btn--active {
+    background-color: var(--accent);
+    color: var(--accent-text);
+}
+
+.settings__theme_btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .settings_page {
+        padding: 3vh 5vw;
+    }
+
+    .settings__option {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
